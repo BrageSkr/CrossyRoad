@@ -5,7 +5,7 @@
 using namespace threepp;
 
 int main() {
-    obstacle test(1,2);
+    obstacle test;
     Canvas canvas;
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
@@ -19,27 +19,9 @@ int main() {
 
     auto group = Group::create();
     scene->add(group);
-    group->add(test.create_geometry(1,1,3));
-    group->add(test.create_geometry(3,1,1));
-    {
-        //    auto geometry = BoxGeometry::create();
-        //    auto material = MeshBasicMaterial::create();
-        //  material->color = Color::blue;
-        // auto mesh = Mesh::create(geometry, material);
-        //mesh->position.x = 1;
-        //  group->add(mesh);
+    group->add(test.create_geometry(1,1,3,1));
+    group->add(test.create_geometry(1,1,3,-1));
 
-    }
-
-    {
-   //    auto geometry = BoxGeometry::create();
-    //    auto material = MeshBasicMaterial::create();
-      //  material->color = Color::blue;
-       // auto mesh = Mesh::create(geometry, material);
-        //mesh->position.x = 1;
-      //  group->add(mesh);
-
-    }
 
     renderer.enableTextRendering();
     auto& textHandle = renderer.textHandle("Hello World");
