@@ -26,23 +26,25 @@ int main() {
     auto scene = Scene::create();
 
     auto group = Group::create();
+    auto group1 = Group::create();
     scene->add(group);
+    scene->add(group1);
     scene->add(grid);
     group->add(ball);
     for (int i = 0; i < 20; ++i) {
         float width = randGen();
-        group->add(test.create_geometry(1,1,width,i*2,5));
+        group1->add(test.create_geometry(1,1,width,i*2,5));
 
     }
     for (int i = 0; i < 20; ++i) {
         float width = randGen();
-        group->add(test.create_geometry(1,1,width,i*2,-5));
+        group1->add(test.create_geometry(1,1,width,i*2,-5));
 
     }
 
 
     renderer.enableTextRendering();
-    auto& textHandle = renderer.textHandle("Hello World");
+    auto& textHandle = renderer.textHandle();
     textHandle.setPosition(0, canvas.getSize().height-30);
     textHandle.scale = 2;
 
@@ -64,13 +66,23 @@ int main() {
         textHandle.setPosition(0, size.height-30);
     });
 
-    canvas.animate([&] {
-
+    canvas.animate([&](float dt) {
+        ball->position.x +=  5.f * dt;
+        group1->position.z += 5.f *dt;
+        if(ball->position.x>=20){
+            ball->position.x= 0;
+        }
+        if(group1->position.z>=20){
+            group1->position.z= -20;
+        }
         renderer.render(scene, camera);
-
+        textHandle.setText("Time: " + std::to_string(dt));
         ui.render();
         group->position.fromArray(posBuf);
 
     });
 
 }
+
+
+
