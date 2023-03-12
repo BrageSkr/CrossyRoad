@@ -4,6 +4,7 @@ project(EksamenOOP)
 set(CMAKE_CXX_STANDARD 17)
 find_package(threepp CONFIG REQUIRED)
 find_package(imgui CONFIG)
+
 if (imgui_FOUND)
 
     if(EXISTS "${CMAKE_BINARY_DIR}/_deps/imgui_glfw")
@@ -21,3 +22,18 @@ endif ()
 add_executable(eksamenOOP src/main.cpp include/obstacle.hpp include/sphere.hpp)
 target_link_libraries(eksamenOOP PRIVATE threepp::threepp imgui::imgui)
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/include")
+
+include(FetchContent)
+FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG v2.13.8
+)
+FetchContent_MakeAvailable(Catch2)
+
+enable_testing()
+add_subdirectory(tests)
+
+
+
+

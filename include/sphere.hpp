@@ -23,7 +23,6 @@ private:
 auto sphere::create_geometry (float p) {
     auto geometry = SphereGeometry::create(0.75f,20,20);
     auto material = MeshBasicMaterial::create();
-    std::array<float, 3> random_color = return_color();
     material->color = Color::red;
     //material->wireframe = true;
     auto mesh = Mesh::create(geometry, material);
