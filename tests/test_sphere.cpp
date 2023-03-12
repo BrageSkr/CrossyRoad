@@ -8,5 +8,5 @@
 
 TEST_CASE("Test person") {
 
-
+    CHECK(1 == 1);
 }
