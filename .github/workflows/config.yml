@@ -4,7 +4,7 @@ name: Build
 on: [push, workflow_dispatch]
 
 jobs:
-  conan-on-linux:
+  vcpkg-on-linux:
 
     runs-on: ${{ matrix.os }}
     env:
@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
-        compiler_version: [9]
+        os: [ ubuntu-20.04 ]
+        compiler_version: [ 9 ]
 
     steps:
       - uses: actions/checkout@v3
@@ -22,46 +22,23 @@ jobs:
       - name: Install prerequisites
         run: |
           sudo apt install -y \
-          libgl-dev \
-          libfontenc-dev \
-          libxaw7-dev \
-          libxkbfile-dev \
-          libxmu-dev \
-          libxmuu-dev \
-          libxpm-dev \
-          libxres-dev \
-          libxss-dev \
-          libxt-dev \
-          libxtst-dev \
-          libxv-dev \
-          libxvmc-dev \
-          libxxf86vm-dev \
-          libxcb-render-util0-dev \
-          libxcb-xkb-dev \
-          libxcb-icccm4-dev \
-          libxcb-image0-dev \
-          libxcb-keysyms1-dev \
-          libxcb-randr0-dev \
-          libxcb-shape0-dev \
-          libxcb-sync-dev \
-          libxcb-xfixes0-dev \
-          libxcb-xinerama0-dev \
-          libxcb-dri3-dev \
-          libx11-xcb-dev \
-          libxcomposite-dev \
-          libxcursor-dev \
-          libxdamage-dev \
           libxinerama-dev \
-          libxrandr-dev \
-          libxcb-util-dev
-          sudo pip3 install --upgrade setuptools pip
-          sudo pip3 install conan==1.59.0
-      - name: Run conan
-        run: |
-          conan install . -s build_type=Release -if build -b missing
+          libxcursor-dev \
+          xorg-dev \
+          libglu1-mesa-dev \
+          pkg-config
+      - name: Restore artifacts, or run vcpkg, build (and cache artifacts as post step)
+        uses: lukka/run-vcpkg@v10
+        id: runvcpkg
+        with:
+          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
+          vcpkgGitCommitId: '12c2a93b4007612b5ffa980c9d2235eb0bcac10f'
+          vcpkgJsonGlob: 'vcpkg.json'
+          appendedCacheKey: vcpkginstall
+
       - name: Configure and build
         run: |
-          cmake . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake . -B build -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_MANIFEST_FEATURES="imgui;assimp" -DCMAKE_BUILD_TYPE=Release
           cmake --build build
       - name: Test
         run: |
@@ -125,4 +102,4 @@ jobs:
       - name: Test
         run: |
           cd build/tests
-          ctest --output-on-failure 
+          ctest --output-on-failure
