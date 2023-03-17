@@ -5,7 +5,7 @@
 #include "sphere.hpp"
 using namespace threepp;
 float randGen(){
-    float number = math::randomInRange(0.1f,8.0f);
+    float number = math::randomInRange(0.1f,9.0f);
     return number;
 };
 
@@ -19,7 +19,7 @@ int main() {
     renderer.setClearColor(Color::aliceblue);
 
     auto camera = PerspectiveCamera::create();
-    camera->position.y =20;
+    camera->position.y =50;
 
     OrbitControls controls{camera, canvas};
 
@@ -31,20 +31,18 @@ int main() {
     scene->add(group1);
     scene->add(grid);
     group->add(player.mesh());
-    for (int i = 0; i < 20; ++i) {
+    for (int j = -50; j <=50; j+=9 ) {
 
-        float width = randGen();
-        obstacle test(1,1,width,i*2,-5);
-        group1->add(test.mesh());
+
+        for (int i = 0; i < 30; ++i) {
+
+            float width = randGen();
+            obstacle test(1, 1, width, (i * 2)+2, j);
+            group1->add(test.mesh());
+
+        }
 
     }
-    for (int i = 0; i < 20; ++i) {
-        float width = randGen();
-        obstacle test(1,1,width,i*2,5);
-        group1->add(test.mesh());
-
-    }
-
 
     renderer.enableTextRendering();
     auto& textHandle = renderer.textHandle();

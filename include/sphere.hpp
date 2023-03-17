@@ -12,12 +12,7 @@
 #include <iostream>
 using namespace threepp;
 
-enum class Direction {
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN
-};
+
 
 
 class sphere{
@@ -37,13 +32,18 @@ sphere(float p)
     return _mesh;
 }
     void move (float dt){
-        _mesh->position.x += 5.f *dt;
-        _mesh->position.z += 5.f *dt;
+   _mesh->position.z += 5.f*dt;
+   _mesh->position.x += 5.f*dt;
+   if (_mesh->position.x>20 || _mesh->position.z>20){
+       _mesh->position.z =0;
+       _mesh->position.x = 0;
+   }
 
     }
 private:
   std::shared_ptr  <threepp:: Mesh> _mesh;
 };
+
 
 
 #endif //EKSAMENOOP_SPHERE_HPP
