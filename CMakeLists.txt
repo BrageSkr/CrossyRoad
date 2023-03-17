@@ -22,6 +22,7 @@ endif ()
 add_executable(eksamenOOP src/main.cpp include/obstacle.hpp include/sphere.hpp)
 target_link_libraries(eksamenOOP PRIVATE threepp::threepp imgui::imgui)
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/include")
+target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/src")
 
 include(FetchContent)
 FetchContent_Declare(
