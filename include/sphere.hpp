@@ -12,22 +12,38 @@
 #include <iostream>
 using namespace threepp;
 
+enum class Direction {
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN
+};
+
 
 class sphere{
 public:
-    auto create_geometry(float p);
-private:
 
+sphere(float p)
+     {
+        auto geometry = SphereGeometry::create(0.75f,20,20);
+        auto material = MeshBasicMaterial::create();
+        material->color = Color::red;
+        _mesh = Mesh::create(geometry, material);
+        _mesh->position.x = p;
+
+    }
+
+    std::shared_ptr  <threepp:: Mesh> mesh(){
+    return _mesh;
+}
+    void move (float dt){
+        _mesh->position.x += 5.f *dt;
+        _mesh->position.z += 5.f *dt;
+
+    }
+private:
+  std::shared_ptr  <threepp:: Mesh> _mesh;
 };
 
-auto sphere::create_geometry (float p) {
-    auto geometry = SphereGeometry::create(0.75f,20,20);
-    auto material = MeshBasicMaterial::create();
-    material->color = Color::red;
-    //material->wireframe = true;
-    auto mesh = Mesh::create(geometry, material);
-    mesh->position.x = p;
-    return mesh;
-}
 
 #endif //EKSAMENOOP_SPHERE_HPP

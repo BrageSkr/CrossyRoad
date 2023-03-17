@@ -8,11 +8,11 @@ float randGen(){
     float number = math::randomInRange(0.1f,8.0f);
     return number;
 };
+
 int main() {
 
-    obstacle test;
-    sphere player;
-    auto ball = player.create_geometry(0);
+
+    sphere player(0);
     auto grid = GridHelper::create(100,100,Color:: green, Color::pink);
     Canvas canvas;
     GLRenderer renderer(canvas);
@@ -30,15 +30,18 @@ int main() {
     scene->add(group);
     scene->add(group1);
     scene->add(grid);
-    group->add(ball);
+    group->add(player.mesh());
     for (int i = 0; i < 20; ++i) {
+
         float width = randGen();
-        group1->add(test.create_geometry(1,1,width,i*2,5));
+        obstacle test(1,1,width,i*2,-5);
+        group1->add(test.mesh());
 
     }
     for (int i = 0; i < 20; ++i) {
         float width = randGen();
-        group1->add(test.create_geometry(1,1,width,i*2,-5));
+        obstacle test(1,1,width,i*2,5);
+        group1->add(test.mesh());
 
     }
 
@@ -67,16 +70,16 @@ int main() {
     });
 
     canvas.animate([&](float dt) {
-        ball->position.x +=  5.f * dt;
+        player.move(dt);
         group1->position.z += 5.f *dt;
-        if(ball->position.x>=20){
-            ball->position.x= 0;
-        }
+        float Time = 0;
+        Time += 1.f *dt + Time;
+
         if(group1->position.z>=20){
             group1->position.z= -20;
         }
         renderer.render(scene, camera);
-        textHandle.setText("Time: " + std::to_string(dt));
+        textHandle.setText("Time: " + std::to_string(Time));
         ui.render();
         group->position.fromArray(posBuf);
 
