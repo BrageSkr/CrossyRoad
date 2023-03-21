@@ -37,6 +37,7 @@ public:
     }
 
 
+
 private:
     std::shared_ptr  <threepp:: Mesh> _mesh;
     float width = 0;
