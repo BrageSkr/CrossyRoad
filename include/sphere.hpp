@@ -12,15 +12,11 @@
 #include <iostream>
 using namespace threepp;
 
-
-
-
-class sphere{
+class sphere : public KeyListener {
 public:
 
-sphere(float p)
-     {
-        auto geometry = SphereGeometry::create(0.75f,20,20);
+    sphere(float p) {
+        auto geometry = SphereGeometry::create(0.75f, 20, 20);
         auto material = MeshBasicMaterial::create();
         material->color = Color::red;
         _mesh = Mesh::create(geometry, material);
@@ -28,21 +24,37 @@ sphere(float p)
 
     }
 
-    std::shared_ptr  <threepp:: Mesh> mesh(){
-    return _mesh;
-}
-    void move (float dt){
-   _mesh->position.z += 5.f*dt;
-   _mesh->position.x += 5.f*dt;
-   if (_mesh->position.x>20 || _mesh->position.z>20){
-       _mesh->position.z =0;
-       _mesh->position.x = 0;
-   }
-
+    std::shared_ptr<threepp::Mesh> mesh() {
+        return _mesh;
     }
+
+    void move(float dt) {
+        _mesh->position.x += 0.5f * dt;
+        _mesh->position.z += 0.5f * dt;
+    }
+    void onKeyPressed(KeyEvent evt, float dt)  {
+
+            if (evt.key == 265 ) {
+                _mesh->position.x += 0.5f *dt;
+            }
+            if (evt.key == 264 ) {
+                _mesh->position.x += -0.5f *dt;
+            }
+            if (evt.key == 263 ) {
+                _mesh->position.z += 0.5f *dt;;
+            }
+            if (evt.key == 262 ) {
+                _mesh->position.x += -0.5f *dt;;
+            }}
+
+
+
 private:
   std::shared_ptr  <threepp:: Mesh> _mesh;
 };
+
+
+
 
 
 

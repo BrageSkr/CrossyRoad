@@ -17,31 +17,24 @@ int main() {
     Canvas canvas;
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
-
     auto camera = PerspectiveCamera::create();
     camera->position.y =50;
 
     OrbitControls controls{camera, canvas};
-
     auto scene = Scene::create();
-
     auto group = Group::create();
     auto group1 = Group::create();
     scene->add(group);
     scene->add(group1);
     scene->add(grid);
     group->add(player.mesh());
+
     for (int j = -50; j <=50; j+=9 ) {
-
-
         for (int i = 0; i < 30; ++i) {
-
             float width = randGen();
             obstacle test(1, 1, width, (i * 2)+2, j);
             group1->add(test.mesh());
-
         }
-
     }
 
     renderer.enableTextRendering();
@@ -55,7 +48,7 @@ int main() {
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
         ImGui::SetNextWindowSize({230, 0}, 0);
         ImGui::Begin("Demo");
-        ImGui::SliderFloat3("position", posBuf.data(), -1.f, 1.f);
+        ImGui::SliderFloat3("position", posBuf.data(), -10.f, 10.f);
         controls.enabled = !ImGui::IsWindowHovered();
         ImGui::End();
     });
@@ -66,20 +59,18 @@ int main() {
         renderer.setSize(size);
         textHandle.setPosition(0, size.height-30);
     });
-
+    float Time = 0;
     canvas.animate([&](float dt) {
+
         player.move(dt);
         group1->position.z += 5.f *dt;
-        float Time = 0;
-        Time += 1.f *dt + Time;
-
+        Time += 1.f *dt;
         if(group1->position.z>=20){
             group1->position.z= -20;
         }
         renderer.render(scene, camera);
         textHandle.setText("Time: " + std::to_string(Time));
         ui.render();
-        group->position.fromArray(posBuf);
 
     });
 

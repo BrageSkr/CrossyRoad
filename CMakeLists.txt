@@ -24,6 +24,7 @@ target_link_libraries(eksamenOOP PRIVATE threepp::threepp imgui::imgui)
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/include")
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/src")
 
+
 include(FetchContent)
 FetchContent_Declare(
         Catch2
@@ -34,6 +35,7 @@ FetchContent_MakeAvailable(Catch2)
 
 enable_testing()
 add_subdirectory(tests)
+
 
 
 
