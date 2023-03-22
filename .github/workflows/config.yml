@@ -44,13 +44,14 @@ jobs:
         run: |
           cd build/tests
           ctest --output-on-failure
+
   vcpkg-on-windows:
 
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2019]
+        os: [ windows-2019, windows-2022 ]
 
     steps:
       - uses: actions/checkout@v3
@@ -72,6 +73,7 @@ jobs:
         run: |
           cd build/tests
           ctest -C Release --output-on-failure
+            
   vcpkg-on-darwin:
 
     runs-on: ${{ matrix.os }}
