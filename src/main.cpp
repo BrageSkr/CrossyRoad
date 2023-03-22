@@ -4,14 +4,13 @@
 #include "obstacle.hpp"
 #include "sphere.hpp"
 using namespace threepp;
+
 float randGen(){
     float number = math::randomInRange(0.1f,9.0f);
     return number;
 };
 
 int main() {
-
-
     sphere player(0);
     auto grid = GridHelper::create(100,100,Color:: green, Color::pink);
     Canvas canvas;
@@ -19,7 +18,6 @@ int main() {
     renderer.setClearColor(Color::aliceblue);
     auto camera = PerspectiveCamera::create();
     camera->position.y =50;
-
     OrbitControls controls{camera, canvas};
     auto scene = Scene::create();
     auto group = Group::create();
@@ -28,7 +26,6 @@ int main() {
     scene->add(group1);
     scene->add(grid);
     group->add(player.mesh());
-
     for (int j = -50; j <=50; j+=9 ) {
         for (int i = 0; i < 30; ++i) {
             float width = randGen();
@@ -36,7 +33,7 @@ int main() {
             group1->add(test.mesh());
         }
     }
-
+canvas.addKeyListener(&player);
     renderer.enableTextRendering();
     auto& textHandle = renderer.textHandle();
     textHandle.setPosition(0, canvas.getSize().height-30);
@@ -59,11 +56,12 @@ int main() {
         renderer.setSize(size);
         textHandle.setPosition(0, size.height-30);
     });
+
     float Time = 0;
     canvas.animate([&](float dt) {
 
-        player.move(dt);
-        group1->position.z += 5.f *dt;
+        player.update(dt);
+        group1->position.z += 3.f *dt;
         Time += 1.f *dt;
         if(group1->position.z>=20){
             group1->position.z= -20;

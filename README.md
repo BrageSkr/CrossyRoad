@@ -1,4 +1,4 @@
-# Crossy road using threepp
+# Crossy road using threepp (placeholder content)
 
 ## Description
 This code creates a simple 3D scene using the Three++ library. It includes a player sphere, a grid helper, and multiple randomly generated obstacles that move towards the player. The player can be moved around using mouse controls, and a text display at the top of the canvas shows the amount of time that has elapsed.
@@ -6,9 +6,11 @@ This code creates a simple 3D scene using the Three++ library. It includes a pla
 ## Dependencies
 - Three++ library
 - ImGui library
+- Call CMake with `-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake`
+
 
 ## Usage
-1. Ensure that the Three++ and ImGui libraries are properly installed and linked.
+1. Ensure that the Threepp and ImGui libraries are properly installed and linked.
 2. Compile the code.
 3. Run the executable file.
 
