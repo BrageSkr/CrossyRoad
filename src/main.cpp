@@ -33,7 +33,7 @@ int main() {
             group1->add(test.mesh());
         }
     }
-canvas.addKeyListener(&player);
+
     renderer.enableTextRendering();
     auto& textHandle = renderer.textHandle();
     textHandle.setPosition(0, canvas.getSize().height-30);
@@ -50,19 +50,19 @@ canvas.addKeyListener(&player);
         ImGui::End();
     });
 
-    canvas.onWindowResize([&](WindowSize size){
+    canvas.onWindowResize([&](WindowSize size) {
         camera->aspect = size.getAspect();
         camera->updateProjectionMatrix();
         renderer.setSize(size);
-        textHandle.setPosition(0, size.height-30);
+        textHandle.setPosition(0, size.height - 30);
     });
-
+    canvas.addKeyListener(&player);
     float Time = 0;
     canvas.animate([&](float dt) {
 
         player.update(dt);
-        group1->position.z += 3.f *dt;
-        Time += 1.f *dt;
+        group1->position.z += 2.f * dt;
+        Time += 1.f * dt;
         if(group1->position.z>=20){
             group1->position.z= -20;
         }
