@@ -18,21 +18,22 @@ std::array<float,3> return_color(){
     return random_colors;
 };
 
-class obstacle{
+class obstacle {
 public:
 
-     obstacle (float l,float h,float w, float p,float pz){
-        auto geometry = BoxGeometry::create(l,h,w);
+    obstacle(float w, float p, float pz) { //creates the obstacle and returns a mesh 
+        auto geometry = BoxGeometry::create(1, 1, w);
         auto material = MeshBasicMaterial::create();
-        std::array<float,3>random_color  = return_color();
-        material->color = Color(random_color[0],random_color[1],random_color[2]);
+        std::array<float, 3> random_color = return_color();
+        material->color = Color(random_color[0], random_color[1], random_color[2]);
         _mesh = Mesh::create(geometry, material);
         _mesh->position.x = p;
-        _mesh->position.z= pz;
+        _mesh->position.z = pz;
 
 
     }
-    std::shared_ptr  <threepp:: Mesh> mesh(){
+
+    std::shared_ptr<threepp::Mesh> mesh() {
         return _mesh;
     }
 
@@ -40,10 +41,7 @@ public:
 
 private:
     std::shared_ptr  <threepp:: Mesh> _mesh;
-    float width = 0;
-    float height = 1;
-    float length = 0;
-    float pos = 0;
+
 };
 
 

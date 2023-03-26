@@ -8,7 +8,7 @@
 #include <iostream>
 using namespace threepp;
 
-struct wasd {
+struct wasd {  // a struct that describes the keyinput as a boolean with the name of direction
     bool left = false;
     bool right = false;
     bool up = false;
@@ -18,7 +18,7 @@ struct wasd {
 class sphere : public KeyListener {
 public:
 
-    sphere(float p) {
+    sphere(float p) { //generates the sphere with a starting position as a constructor
         auto geometry = SphereGeometry::create(0.75f, 20, 20);
         auto material = MeshBasicMaterial::create();
         material->color = Color::red;
@@ -26,10 +26,13 @@ public:
         _mesh->position.x = p;
 
     }
+
     std::shared_ptr<threepp::Mesh> mesh() {
-        return _mesh;
+        return _mesh;  //returns the _mesh as a shared pointer
     }
-    void onKeyPressed(KeyEvent evt) override  {
+
+    void onKeyPressed(
+            KeyEvent evt) override { //keylistner that monitors button presses, and changes the boolean for direction accordingly
 
         if (evt.key == 87) {
             wasd_.up = true;
@@ -39,8 +42,11 @@ public:
             wasd_.right = true;
         } else if (evt.key == 65) {
             wasd_.left = true;
-        }};
-    void onKeyReleased(KeyEvent evt) override {
+        }
+    };
+
+    void onKeyReleased(
+            KeyEvent evt) override { //keylistner that monitors if a button is released, and changes the boolean for direction accordingly
         if (evt.key == 87) {
             wasd_.up = false;
         } else if (evt.key == 83) {
@@ -51,7 +57,8 @@ public:
             wasd_.left = false;
         }
     };
-    void update(float dt) {
+
+    void update(float dt) { //an update function that calls spesific movments functions
 
         if (wasd_.up) {
             move_forwards(dt);

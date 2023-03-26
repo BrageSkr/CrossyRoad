@@ -5,8 +5,8 @@
 #include "sphere.hpp"
 using namespace threepp;
 
-float randGen(){
-    float number = math::randomInRange(0.1f,9.0f);
+float randGen() {  //function that generates a random number for the size of obstacles, will be implemented in the class
+    float number = math::randomInRange(0.1f, 9.0f);
     return number;
 };
 
@@ -26,21 +26,22 @@ int main() {
     scene->add(group1);
     scene->add(grid);
     group->add(player.mesh());
-    for (int j = -50; j <=50; j+=9 ) {
+    for (int j = -50;
+         j <= 50; j += 9) {   //for- loop that creates the obstacles, plan to be implemented in a class at a later time
         for (int i = 0; i < 30; ++i) {
             float width = randGen();
-            obstacle test(1, 1, width, (i * 2)+2, j);
+            obstacle test(width, (i * 2) + 2, j);
             group1->add(test.mesh());
         }
     }
 
     renderer.enableTextRendering();
-    auto& textHandle = renderer.textHandle();
-    textHandle.setPosition(0, canvas.getSize().height-30);
+    auto &textHandle = renderer.textHandle();
+    textHandle.setPosition(0, canvas.getSize().height - 30);
     textHandle.scale = 2;
 
 
-    std::array<float, 3> posBuf{};
+    std::array<float, 3> posBuf{}; //imgui setup for rotating the camera
     imgui_functional_context ui(canvas.window_ptr(), [&] {
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
         ImGui::SetNextWindowSize({230, 0}, 0);
@@ -56,15 +57,15 @@ int main() {
         renderer.setSize(size);
         textHandle.setPosition(0, size.height - 30);
     });
-    canvas.addKeyListener(&player);
+    canvas.addKeyListener(&player); //adding the keylistner in the class to the canvas
     float Time = 0;
-    canvas.animate([&](float dt) {
+    canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
 
         player.update(dt);
         group1->position.z += 2.f * dt;
         Time += 1.f * dt;
-        if(group1->position.z>=20){
-            group1->position.z= -20;
+        if (group1->position.z >= 20) {
+            group1->position.z = -20;
         }
         renderer.render(scene, camera);
         textHandle.setText("Time: " + std::to_string(Time));
