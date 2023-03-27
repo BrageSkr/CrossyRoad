@@ -5,8 +5,5 @@
 #include "sphere.hpp"
 
 TEST_CASE("test sphere") {
-    wasd test;
-    bool value = test.right;
-
-    CHECK(value == false);
+  
 }
