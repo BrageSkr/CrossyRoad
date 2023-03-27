@@ -73,7 +73,8 @@ jobs:
         run: |
           cd build/tests
           ctest -C Release --output-on-failure
-            
+  
+
   vcpkg-on-darwin:
 
     runs-on: ${{ matrix.os }}
