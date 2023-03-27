@@ -9,7 +9,9 @@
 #include <array>
 #include <string>
 #include <iostream>
+
 using namespace threepp;
+
 std::array<float,3> return_color(){
     float random_red = math::randomInRange(0.f,1.f);
     float random_green = math::randomInRange(0.f,1.f) ;
