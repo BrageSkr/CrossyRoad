@@ -1,9 +1,12 @@
 
 #define CATCH_CONFIG_MAIN
-
+#include "sphere.hpp"
 #include <catch2/catch.hpp>
 
 
 TEST_CASE("test sphere") {
-    CHECK(1 == 1);
+    wasd test;
+    bool value = test.right;
+
+    CHECK(value == false);
 }
