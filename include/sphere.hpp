@@ -19,7 +19,7 @@ class sphere : public KeyListener {
 public:
 
     sphere(float p) { //generates the sphere with a starting position as a constructor
-        auto geometry = SphereGeometry::create(0.75f, 20, 20);
+        auto geometry = SphereGeometry::create(0.1f, 20, 20);
         auto material = MeshBasicMaterial::create();
         material->color = Color::red;
         _mesh = Mesh::create(geometry, material);
@@ -86,9 +86,9 @@ void move_left(float dt){
         _mesh->position.z+= -speed *dt;
     };
 private:
-  std::shared_ptr  <threepp:: Mesh> _mesh;
-  float speed = 3.f;
-  wasd wasd_;
+    std::shared_ptr<threepp::Mesh> _mesh;
+    float speed = 4.f;
+    wasd wasd_;
 };
 
 

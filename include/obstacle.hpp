@@ -31,6 +31,7 @@ public:
         _mesh = Mesh::create(geometry, material);
         _mesh->position.x = p;
         _mesh->position.z = pz;
+        _mesh->name = "obstacle";
 
 
     }

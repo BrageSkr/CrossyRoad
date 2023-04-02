@@ -59,16 +59,41 @@ int main() {
     });
     canvas.addKeyListener(&player); //adding the keylistner in the class to the canvas
     float Time = 0;
+
     canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
 
         player.update(dt);
-        group1->position.z += 2.f * dt;
+
+        std::vector<std::shared_ptr<Object3D>> closestObstacles;
+
+        float closestDistance = std::numeric_limits<float>::max();
+        for (auto &obstacle: group1->children) {
+            float distance = player.mesh()->position.distanceTo(obstacle->position);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestObstacles = {obstacle};
+            } else if (distance == closestDistance) {
+                closestObstacles.push_back(obstacle);
+            }
+        }
+        float minDistance = std::numeric_limits<float>::max();
+        for (auto obstacle: group1->children) {
+            float distance1 = obstacle->position.distanceTo(player.mesh()->position);
+            float size1 = obstacle->getObjectByName(std::string("obstacle"))->scale.z;
+            distance1 -= size1;
+            if (distance1 < minDistance) {
+                minDistance = distance1;
+            }
+        }
+
+        group1->position.z += 0.f * dt;
         Time += 1.f * dt;
         if (group1->position.z >= 20) {
             group1->position.z = -20;
         }
         renderer.render(scene, camera);
-        textHandle.setText("Time: " + std::to_string(Time));
+        textHandle.setText("Time: " + std::to_string(minDistance) + "  " + std::to_string(closestDistance));
+
         ui.render();
 
     });
