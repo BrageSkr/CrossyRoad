@@ -12,11 +12,11 @@
 
 using namespace threepp;
 
-std::array<float,3> return_color(){
-    float random_red = math::randomInRange(0.f,1.f);
-    float random_green = math::randomInRange(0.f,1.f) ;
-    float random_blue = math::randomInRange(0.f,1.f);
-    std::array<float,3> random_colors = {random_red, random_green, random_blue};
+std::array<float, 3> return_color() {
+    float random_red = math::randomInRange(0.f, 1.f);
+    float random_green = math::randomInRange(0.f, 1.f);
+    float random_blue = math::randomInRange(0.f, 1.f);
+    std::array<float, 3> random_colors = {random_red, random_green, random_blue};
     return random_colors;
 };
 
@@ -41,12 +41,10 @@ public:
     }
 
 
-
 private:
-    std::shared_ptr  <threepp:: Mesh> _mesh;
+    std::shared_ptr<threepp::Mesh> _mesh;
 
 };
-
 
 
 #endif //EKSAMENOOP_OBSTACLE_HPP

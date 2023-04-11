@@ -3,6 +3,7 @@
 #include "threepp/extras/imgui/imgui_context.hpp"
 #include "obstacle.hpp"
 #include "sphere.hpp"
+
 using namespace threepp;
 
 float randGen() {  //function that generates a random number for the size of obstacles, will be implemented in the class
@@ -12,12 +13,12 @@ float randGen() {  //function that generates a random number for the size of obs
 
 int main() {
     sphere player(0);
-    auto grid = GridHelper::create(100,100,Color:: green, Color::pink);
+    auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
     Canvas canvas;
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
     auto camera = PerspectiveCamera::create();
-    camera->position.y =50;
+    camera->position.y = 50;
     OrbitControls controls{camera, canvas};
     auto scene = Scene::create();
     auto group = Group::create();
@@ -76,23 +77,15 @@ int main() {
                 closestObstacles.push_back(obstacle);
             }
         }
-        float minDistance = std::numeric_limits<float>::max();
-        for (auto obstacle: group1->children) {
-            float distance1 = obstacle->position.distanceTo(player.mesh()->position);
-            float size1 = obstacle->getObjectByName(std::string("obstacle"))->scale.z;
-            distance1 -= size1;
-            if (distance1 < minDistance) {
-                minDistance = distance1;
-            }
-        }
 
-        group1->position.z += 0.f * dt;
+
+        group1->position.z += 2.f * dt;
         Time += 1.f * dt;
         if (group1->position.z >= 20) {
             group1->position.z = -20;
         }
         renderer.render(scene, camera);
-        textHandle.setText("Time: " + std::to_string(minDistance) + "  " + std::to_string(closestDistance));
+        textHandle.setText("Time: " + std::to_string(closestDistance));
 
         ui.render();
 

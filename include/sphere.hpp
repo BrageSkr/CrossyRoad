@@ -6,6 +6,7 @@
 #include <array>
 #include <string>
 #include <iostream>
+
 using namespace threepp;
 
 struct wasd {  // a struct that describes the keyinput as a boolean with the name of direction
@@ -71,19 +72,23 @@ public:
         }
         if (wasd_.left) {
             move_left(dt);
-        }};
+        }
+    };
 
-void move_forwards(float dt){
-    _mesh->position.x+= speed *dt;
-};
-void move_backwards(float dt){
-        _mesh->position.x+= -speed *dt;
+    void move_forwards(float dt) {
+        _mesh->position.x += speed * dt;
     };
-void move_right(float dt){
-        _mesh->position.z+= speed *dt;
+
+    void move_backwards(float dt) {
+        _mesh->position.x += -speed * dt;
     };
-void move_left(float dt){
-        _mesh->position.z+= -speed *dt;
+
+    void move_right(float dt) {
+        _mesh->position.z += speed * dt;
+    };
+
+    void move_left(float dt) {
+        _mesh->position.z += -speed * dt;
     };
 private:
     std::shared_ptr<threepp::Mesh> _mesh;
