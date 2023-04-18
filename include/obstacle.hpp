@@ -32,7 +32,11 @@ public:
         _mesh->position.x = p;
         _mesh->position.z = pz;
         _mesh->name = "obstacle";
+        _mesh->geometry()->computeBoundingBox();
 
+    }
+
+    void generate_obstacles(threepp::Mesh mesh) {
 
     }
 
@@ -42,6 +46,7 @@ public:
 
 
 private:
+
     std::shared_ptr<threepp::Mesh> _mesh;
 
 };

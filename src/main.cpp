@@ -9,7 +9,7 @@ using namespace threepp;
 float randGen() {  //function that generates a random number for the size of obstacles, will be implemented in the class
     float number = math::randomInRange(0.1f, 9.0f);
     return number;
-};
+}
 
 int main() {
     sphere player(0);
@@ -22,19 +22,18 @@ int main() {
     OrbitControls controls{camera, canvas};
     auto scene = Scene::create();
     auto group = Group::create();
-    auto group1 = Group::create();
+    scene->add(player.mesh());
     scene->add(group);
-    scene->add(group1);
     scene->add(grid);
-    group->add(player.mesh());
     for (int j = -50;
          j <= 50; j += 9) {   //for- loop that creates the obstacles, plan to be implemented in a class at a later time
         for (int i = 0; i < 30; ++i) {
             float width = randGen();
             obstacle test(width, (i * 2) + 2, j);
-            group1->add(test.mesh());
+            group->add(test.mesh());
         }
     }
+
 
     renderer.enableTextRendering();
     auto &textHandle = renderer.textHandle();
@@ -64,28 +63,35 @@ int main() {
     canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
 
         player.update(dt);
-
+        group->position.z += 2.0f * dt;
         std::vector<std::shared_ptr<Object3D>> closestObstacles;
 
         float closestDistance = std::numeric_limits<float>::max();
-        for (auto &obstacle: group1->children) {
-            float distance = player.mesh()->position.distanceTo(obstacle->position);
+        float closestSize = 0.0f;
+        for (auto &obstacle: group->children) {
+            auto _obstacle = obstacle->geometry()->boundingBox;
+            Vector3 size;
+            _obstacle->getSize(size);
+            float distance = player.mesh()->position.distanceTo(group->position + obstacle->position);
             if (distance < closestDistance) {
                 closestDistance = distance;
                 closestObstacles = {obstacle};
+                closestSize = size.z;
+
             } else if (distance == closestDistance) {
                 closestObstacles.push_back(obstacle);
             }
         }
 
-
-        group1->position.z += 2.f * dt;
+        if (closestDistance < (closestSize / 2)) {
+            player.reset(dt);
+        }
         Time += 1.f * dt;
-        if (group1->position.z >= 20) {
-            group1->position.z = -20;
+        if (group->position.z >= 20) {
+            group->position.z = -20;
         }
         renderer.render(scene, camera);
-        textHandle.setText("Time: " + std::to_string(closestDistance));
+        textHandle.setText("Time: " + std::to_string(closestDistance) + " :" + std::to_string(closestSize));
 
         ui.render();
 
