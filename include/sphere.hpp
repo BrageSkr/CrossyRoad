@@ -20,11 +20,13 @@ class sphere : public KeyListener {
 public:
 
     sphere(float position_x) { //generates the sphere with a starting position as a constructor
-        auto geometry = SphereGeometry::create(0.5f, 20, 20);
+        auto geometry = SphereGeometry::create(0.1f, 20, 20);
         auto material = MeshBasicMaterial::create();
         material->color = Color::red;
         _mesh = Mesh::create(geometry, material);
         _mesh->position.x = position_x;
+        _mesh->name = "sphere";
+        _mesh->geometry()->computeBoundingSphere();
 
     }
 
@@ -91,7 +93,7 @@ public:
         _mesh->position.z += -speed * dt;
     };
 
-    void reset(float dt) {
+    void reset() {
         _mesh->position.x = 0;
         _mesh->position.z = 0;
 

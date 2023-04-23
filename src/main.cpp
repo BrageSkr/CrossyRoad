@@ -26,7 +26,7 @@ int main() {
     scene->add(group);
     scene->add(grid);
     for (int j = -50;
-         j <= 50; j += 9) {   //for- loop that creates the obstacles, plan to be implemented in a class at a later time
+         j <= 50; j += 9) {   //for-loop that creates the obstacles, plan to be implemented in a class at a later time
         for (int i = 0; i < 30; ++i) {
             float width = randGen();
             obstacle test(width, (i * 2) + 2, j);
@@ -58,40 +58,38 @@ int main() {
         textHandle.setPosition(0, size.height - 30);
     });
     canvas.addKeyListener(&player); //adding the keylistner in the class to the canvas
-    float Time = 0;
-
+    std::string collision = "";
     canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
 
         player.update(dt);
-        group->position.z += 2.0f * dt;
-        std::vector<std::shared_ptr<Object3D>> closestObstacles;
-
-        float closestDistance = std::numeric_limits<float>::max();
-        float closestSize = 0.0f;
+        auto _player = player.mesh()->geometry()->boundingBox;
+        group->position.z += 0.5f * dt;
+        auto playerBoundingBox = player.mesh()->geometry()->boundingSphere; // get bounding box of player
+        auto playerWorldBoundingSphere = playerBoundingBox->clone().applyMatrix4((*player.mesh()->matrixWorld));
+        bool hasCollision = false;
         for (auto &obstacle: group->children) {
-            auto _obstacle = obstacle->geometry()->boundingBox;
-            Vector3 size;
-            _obstacle->getSize(size);
-            float distance = player.mesh()->position.distanceTo(group->position + obstacle->position);
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestObstacles = {obstacle};
-                closestSize = size.z;
+            auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
+            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
+                    *obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
 
-            } else if (distance == closestDistance) {
-                closestObstacles.push_back(obstacle);
+            if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
+                hasCollision = true;
+
             }
         }
-
-        if (closestDistance < (closestSize / 2)) {
-            player.reset(dt);
+        if (hasCollision) {
+            collision = "true";
+            player.reset();
+        } else {
+            collision = "false";
         }
-        Time += 1.f * dt;
+
         if (group->position.z >= 20) {
             group->position.z = -20;
         }
+
         renderer.render(scene, camera);
-        textHandle.setText("Time: " + std::to_string(closestDistance) + " :" + std::to_string(closestSize));
+        textHandle.setText("Time: " + collision);
 
         ui.render();
 
