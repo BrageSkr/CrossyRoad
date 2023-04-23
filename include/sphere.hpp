@@ -20,7 +20,7 @@ class sphere : public KeyListener {
 public:
 
     sphere(float position_x) { //generates the sphere with a starting position as a constructor
-        auto geometry = SphereGeometry::create(0.1f, 20, 20);
+        auto geometry = SphereGeometry::create(0.4f, 20, 20);
         auto material = MeshBasicMaterial::create();
         material->color = Color::red;
         _mesh = Mesh::create(geometry, material);

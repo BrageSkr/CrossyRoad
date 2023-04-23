@@ -18,8 +18,9 @@ int main() {
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
     auto camera = PerspectiveCamera::create();
-    camera->position.y = 50;
+    camera->position.y = 20;
     OrbitControls controls{camera, canvas};
+    camera->rotateZ(1.57079633 * 3);
     auto scene = Scene::create();
     auto group = Group::create();
     scene->add(player.mesh());
@@ -59,11 +60,12 @@ int main() {
     });
     canvas.addKeyListener(&player); //adding the keylistner in the class to the canvas
     std::string collision = "";
+    float distance = 0;
     canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
 
         player.update(dt);
         auto _player = player.mesh()->geometry()->boundingBox;
-        group->position.z += 0.5f * dt;
+        group->position.z += 1.f * dt;
         auto playerBoundingBox = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingBox->clone().applyMatrix4((*player.mesh()->matrixWorld));
         bool hasCollision = false;
@@ -87,10 +89,11 @@ int main() {
         if (group->position.z >= 20) {
             group->position.z = -20;
         }
-
+        distance = player.mesh()->position.x;
         renderer.render(scene, camera);
-        textHandle.setText("Time: " + collision);
-
+        textHandle.setText("Distance: " + std::to_string(distance));
+        camera->position.x = player.mesh()->position.x;
+        camera->position.z = player.mesh()->position.z;
         ui.render();
 
     });
