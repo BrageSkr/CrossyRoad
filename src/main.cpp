@@ -62,13 +62,12 @@ int main() {
     std::string collision = "";
     float distance = 0;
     canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
-
         player.update(dt);
-        auto _player = player.mesh()->geometry()->boundingBox;
+        auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
+        auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
         group->position.z += 1.f * dt;
-        auto playerBoundingBox = player.mesh()->geometry()->boundingSphere; // get bounding box of player
-        auto playerWorldBoundingSphere = playerBoundingBox->clone().applyMatrix4((*player.mesh()->matrixWorld));
         bool hasCollision = false;
+
         for (auto &obstacle: group->children) {
             auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
             auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
