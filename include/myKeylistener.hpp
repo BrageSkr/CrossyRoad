@@ -13,7 +13,7 @@ struct keyInput {  // a struct that describes the keyinput as a boolean with the
     bool reset = false;
 };
 
-class myKeyListener {
+class myKeyListener : public KeyListener {
 public:
     void onKeyPressed(
             KeyEvent evt) { //keylistner that monitors button presses, and changes the boolean for direction accordingly
@@ -27,6 +27,7 @@ public:
             keyInput_.left = true;
         } else if (evt.key == 82) {
             keyInput_.reset = true;
+
         }
     };
 

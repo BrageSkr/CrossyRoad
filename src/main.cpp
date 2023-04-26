@@ -58,8 +58,8 @@ int main() {
         renderer.setSize(size);
         textHandle.setPosition(0, size.height - 30);
     });
+    myKeyListener keyListner_;
     canvas.addKeyListener(&player); //adding the keylistner in the class to the canvas
-    std::string collision = "";
     float distance = 0;
     canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
         player.update(dt);
@@ -77,11 +77,9 @@ int main() {
                 hasCollision = true;
             }
         }
+
         if (hasCollision) {
-            collision = "true";
             player.reset();
-        } else {
-            collision = "false";
         }
 
         if (group->position.z >= 20) {
@@ -92,6 +90,7 @@ int main() {
         textHandle.setText("Distance: " + std::to_string(distance));
         camera->position.x = player.mesh()->position.x - 5;
         camera->position.z = player.mesh()->position.z;
+
         ui.render();
 
     });
