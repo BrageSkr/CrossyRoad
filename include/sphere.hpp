@@ -6,9 +6,16 @@
 #include <array>
 #include <string>
 #include <iostream>
-#include "myKeylistener.hpp"
+#include <myKeylistener.hpp>
 
 using namespace threepp;
+struct keyInput1 {
+    bool left = false;
+    bool right = false;
+    bool up = false;
+    bool down = false;
+    bool reset = false;
+};
 
 class sphere : public KeyListener {
 public:
@@ -96,7 +103,8 @@ public:
 private:
     std::shared_ptr<threepp::Mesh> _mesh;
     const float speed = 4.f;
-    keyInput keyInput_;
+    keyInput1 keyInput_;
+
 };
 
 

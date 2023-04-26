@@ -5,7 +5,7 @@
 #include "threepp/threepp.hpp"
 #include <sphere.hpp>
 
-struct keyInput {  // a struct that describes the keyinput as a boolean with the name of direction
+struct keyInput {
     bool left = false;
     bool right = false;
     bool up = false;
