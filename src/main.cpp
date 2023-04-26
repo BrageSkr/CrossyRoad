@@ -5,22 +5,22 @@
 #include "sphere.hpp"
 
 using namespace threepp;
-
+const float toRadians = 3.14159265358979323846264 / 180;
 float randGen() {  //function that generates a random number for the size of obstacles, will be implemented in the class
     float number = math::randomInRange(0.1f, 9.0f);
     return number;
 }
-
 int main() {
     sphere player(0);
     auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
     Canvas canvas;
     GLRenderer renderer(canvas);
-    renderer.setClearColor(Color::aliceblue);
+    renderer.setClearColor(Color::whitesmoke);
     auto camera = PerspectiveCamera::create();
     camera->position.y = 20;
     OrbitControls controls{camera, canvas};
-    camera->rotateZ(1.57079633 * 3);
+    camera->rotateZ(270 * toRadians);
+    camera->rotateX(30 * toRadians);
     auto scene = Scene::create();
     auto group = Group::create();
     scene->add(player.mesh());
@@ -75,7 +75,6 @@ int main() {
 
             if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
                 hasCollision = true;
-
             }
         }
         if (hasCollision) {
@@ -91,7 +90,7 @@ int main() {
         distance = player.mesh()->position.x;
         renderer.render(scene, camera);
         textHandle.setText("Distance: " + std::to_string(distance));
-        camera->position.x = player.mesh()->position.x;
+        camera->position.x = player.mesh()->position.x - 5;
         camera->position.z = player.mesh()->position.z;
         ui.render();
 
