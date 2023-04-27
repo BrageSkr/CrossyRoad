@@ -59,10 +59,12 @@ int main() {
         textHandle.setPosition(0, size.height - 30);
     });
     myKeyListener keyListner_;
-    canvas.addKeyListener(&player); //adding the keylistner in the class to the canvas
+    canvas.addKeyListener(&keyListner_); //adding the keylistner in the class to the canvas
     float distance = 0;
-    canvas.animate([&](float dt) {  //functions that will be updated with every render, like movement and logic
-        player.update(dt);
+    canvas.animate([&](float dt) {  //f
+        keyInput button = keyListner_.getKeyInput();
+
+        player.update(dt, button);
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
         group->position.z += 1.f * dt;
@@ -87,7 +89,7 @@ int main() {
         }
         distance = player.mesh()->position.x;
         renderer.render(scene, camera);
-        textHandle.setText("Distance: " + std::to_string(distance));
+        textHandle.setText("Distance: " + std::to_string(button.up));
         camera->position.x = player.mesh()->position.x - 5;
         camera->position.z = player.mesh()->position.z;
 

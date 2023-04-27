@@ -9,15 +9,8 @@
 #include <myKeylistener.hpp>
 
 using namespace threepp;
-struct keyInput1 {
-    bool left = false;
-    bool right = false;
-    bool up = false;
-    bool down = false;
-    bool reset = false;
-};
 
-class sphere : public KeyListener {
+class sphere {
 public:
 
     sphere(float position_x) { //generates the sphere with a starting position as a constructor
@@ -35,46 +28,22 @@ public:
         return _mesh;  //returns the _mesh as a shared pointer
     }
 
-    void onKeyPressed(
-            KeyEvent evt) override { //keylistner that monitors button presses, and changes the boolean for direction accordingly
+    void update(float dt, const keyInput &input) { //an update function that calls spesific movments functions
 
-        if (evt.key == 87) {
-            keyInput_.up = true;
-        } else if (evt.key == 83) {
-            keyInput_.down = true;
-        } else if (evt.key == 68) {
-            keyInput_.right = true;
-        } else if (evt.key == 65) {
-            keyInput_.left = true;
-        }
-    };
-
-    void onKeyReleased(
-            KeyEvent evt) override { //keylistner that monitors if a button is released, and changes the boolean for direction accordingly
-        if (evt.key == 87) {
-            keyInput_.up = false;
-        } else if (evt.key == 83) {
-            keyInput_.down = false;
-        } else if (evt.key == 68) {
-            keyInput_.right = false;
-        } else if (evt.key == 65) {
-            keyInput_.left = false;
-        }
-    };
-
-    void update(float dt) { //an update function that calls spesific movments functions
-
-        if (keyInput_.up) {
+        if (input.up) {
             move_forwards(dt);
         }
-        if (keyInput_.down) {
+        if (input.down) {
             move_backwards(dt);
         }
-        if (keyInput_.right) {
+        if (input.right) {
             move_right(dt);
         }
-        if (keyInput_.left) {
+        if (input.left) {
             move_left(dt);
+        }
+        if (input.reset) {
+            reset();
         }
     };
 
@@ -103,7 +72,7 @@ public:
 private:
     std::shared_ptr<threepp::Mesh> _mesh;
     const float speed = 4.f;
-    keyInput1 keyInput_;
+
 
 };
 

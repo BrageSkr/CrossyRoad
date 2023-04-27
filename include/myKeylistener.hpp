@@ -45,6 +45,11 @@ public:
             keyInput_.reset = false;
         }
     };
+
+    keyInput &getKeyInput() {
+        return keyInput_;
+    }
+
 private:
     keyInput keyInput_;
 };
