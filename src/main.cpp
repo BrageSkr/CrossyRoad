@@ -33,8 +33,7 @@ int main() {
     scene->add(player.mesh());
     scene->add(group);
     scene->add(grid);
-    for (int j = -50;
-         j <= 50; j += 9) {   //for-loop that creates the obstacles, plan to be implemented in a class at a later time
+    for (int j = -50;j <= 50; j += 9) {   //for-loop that creates the obstacles, plan to be implemented in a class at a later time
         for (int i = 0; i < 30; ++i) {
             float width = randGen();
             obstacle test(width, (i * 2) + 2, j);
@@ -102,6 +101,9 @@ int main() {
         }
         if(score > hightestScore){
             hightestScore = score;
+        }
+        if (player.mesh()->position.x>60){
+            player.mesh()->position.x = 0;
         }
         renderer.render(scene, camera);
         textHandle.setText("Hi-Score: " + std::to_string(hightestScore)+ " Score: " + std::to_string(score));
