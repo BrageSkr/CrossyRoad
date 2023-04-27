@@ -1,4 +1,5 @@
 
+#include <sstream>
 #include "threepp/threepp.hpp"
 #include "threepp/extras/imgui/imgui_context.hpp"
 #include "obstacle.hpp"
@@ -9,6 +10,12 @@ const float toRadians = 3.14159265358979323846264 / 180;
 float randGen() {  //function that generates a random number for the size of obstacles, will be implemented in the class
     float number = math::randomInRange(0.1f, 9.0f);
     return number;
+}
+unsigned int updateHexColor(ImColor color) {
+    unsigned int hexColor = ((unsigned int) (color.Value.x * 255.0f) << 16) |
+                            ((unsigned int) (color.Value.y * 255.0f) << 8) |
+                            ((unsigned int) (color.Value.z * 255.0f));
+    return hexColor;
 }
 int main() {
     sphere player(0);
@@ -41,13 +48,12 @@ int main() {
     textHandle.setPosition(0, canvas.getSize().height - 30);
     textHandle.scale = 2;
 
-
-    std::array<float, 3> posBuf{}; //imgui setup for rotating the camera
+    ImColor color(0.9411765f, 0.972549f, 1.0f, 1.0f);
     imgui_functional_context ui(canvas.window_ptr(), [&] {
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
-        ImGui::SetNextWindowSize({230, 0}, 0);
-        ImGui::Begin("Demo");
-        ImGui::SliderFloat3("position", posBuf.data(), -10.f, 10.f);
+        ImGui::SetNextWindowSize({150, 0}, 0);
+        ImGui::Begin("Color Picker");
+        ImGui::ColorPicker4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
         controls.enabled = !ImGui::IsWindowHovered();
         ImGui::End();
     });
@@ -61,9 +67,10 @@ int main() {
     myKeyListener keyListner_;
     canvas.addKeyListener(&keyListner_); //adding the keylistner in the class to the canvas
     float distance = 0;
+    int score = 0;
+    int hightestScore = 0;
     canvas.animate([&](float dt) {  //f
         keyInput button = keyListner_.getKeyInput();
-
         player.update(dt, button);
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
@@ -87,12 +94,20 @@ int main() {
         if (group->position.z >= 20) {
             group->position.z = -20;
         }
+        unsigned int hexColor = updateHexColor(color);
         distance = player.mesh()->position.x;
+        score = distance/2;
+        if(score<0){
+            score = 0;
+        }
+        if(score > hightestScore){
+            hightestScore = score;
+        }
         renderer.render(scene, camera);
-        textHandle.setText("Distance: " + std::to_string(button.up));
+        textHandle.setText("Hi-Score: " + std::to_string(hightestScore)+ " Score: " + std::to_string(score));
         camera->position.x = player.mesh()->position.x - 5;
         camera->position.z = player.mesh()->position.z;
-
+        renderer.setClearColor(hexColor);
         ui.render();
 
     });

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <myKeylistener.hpp>
 
+
 using namespace threepp;
 
 class sphere {
@@ -23,6 +24,8 @@ public:
         _mesh->geometry()->computeBoundingSphere();
 
     }
+
+
 
     std::shared_ptr<threepp::Mesh> mesh() {
         return _mesh;  //returns the _mesh as a shared pointer
