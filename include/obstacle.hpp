@@ -23,7 +23,7 @@ std::array<float, 3> return_color() {
 class obstacle {
 public:
 
-    obstacle(float w, float p, float pz) { //creates the obstacle and returns a mesh 
+  void  obstacleGeometry(float w, float p, float pz) { //creates the obstacle and returns a mesh
         auto geometry = BoxGeometry::create(1, 1, w);
         auto material = MeshBasicMaterial::create();
         std::array<float, 3> random_color = return_color();
@@ -36,8 +36,16 @@ public:
 
     }
 
-    void generate_obstacles(threepp::Mesh mesh) {
-
+    std::shared_ptr<Group> createObstalces (std::shared_ptr<Group> group){
+        for (int j = -50;j <= 50; j += 9) {   //for-loop that creates the obstacles, plan to be implemented in a class at a later time
+            for (int i = 0; i < 30; ++i) {
+                float width = math::randomInRange(minSize,maxSize);
+                obstacle test;
+                test.obstacleGeometry(width, (i * 2) + 2, j);
+                group->add(test.mesh());
+            }
+        }
+        return group;
     }
 
     std::shared_ptr<threepp::Mesh> mesh() {
@@ -46,7 +54,8 @@ public:
 
 
 private:
-
+   const  float maxSize = 9.0f;
+   const  float minSize = 0.1f;
     std::shared_ptr<threepp::Mesh> _mesh;
 
 };
