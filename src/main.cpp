@@ -25,21 +25,19 @@ int main() {
     auto camera = PerspectiveCamera::create();
     camera->rotateZ(270 * toRadians);
     camera->rotateY(-90*toRadians);
-   // camera->position.x = player.mesh()->position.x + 5;
     auto scene = Scene::create();
     auto group = Group::create();
     scene->add(player.mesh());
-    scene->add(group);
     scene->add(grid);
     obstacle obstacles;
     obstacles.createObstalces(group);
-
+    scene->add(group);
     renderer.enableTextRendering();
     auto &textHandle = renderer.textHandle();
     textHandle.setPosition(0, canvas.getSize().height - 30);
     textHandle.scale = 2;
 
-    ImColor color(0.9411765f, 0.972549f, 1.0f, 1.0f);
+    ImColor color(1.0, 0.0f, 0.0f, 1.0f);
     bool buttonClicked = false;
     imgui_functional_context ui(canvas.window_ptr(), [&] {
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
@@ -90,6 +88,7 @@ int main() {
             group->position.z = -20;
         }
         unsigned int hexColor = updateHexColor(color);
+        player.updateColor(hexColor);
         distance = player.mesh()->position.x;
         score = distance/2;
         if(score<0){
@@ -103,7 +102,7 @@ int main() {
         }
         if (buttonClicked) {
             camera->position.y = 1.f;
-            camera->position.x = player.mesh()->position.x - 3;
+            camera->position.x = player.mesh()->position.x - 2.5;
             camera->position.z = player.mesh()->position.z;
             if (!hasCameraRotated) {
                 camera->rotateX(60 * toRadians);
@@ -133,8 +132,7 @@ int main() {
 
 
         renderer.render(scene, camera);
-        textHandle.setText("Hi-Score: " + std::to_string(hasCameraRotated)+ " Score: " + std::to_string(score));
-        renderer.setClearColor(hexColor);
+        textHandle.setText("Hi-Score: " + std::to_string(hightestScore)+ " Score: " + std::to_string(score));
         ui.render();
 
     });

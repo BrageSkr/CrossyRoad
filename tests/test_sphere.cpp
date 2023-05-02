@@ -1,7 +1,5 @@
-
+#include "obstacle.hpp"
 #define CATCH_CONFIG_MAIN
-#undef near
-#undef far
 
 #include <catch2/catch.hpp>
 

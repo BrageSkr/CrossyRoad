@@ -16,9 +16,9 @@ public:
 
     sphere(float position_x) { //generates the sphere with a starting position as a constructor
         auto geometry = SphereGeometry::create(0.4f, 20, 20);
-        auto material = MeshBasicMaterial::create();
-        material->color = Color::red;
-        _mesh = Mesh::create(geometry, material);
+        meshBasicMaterial = threepp::MeshBasicMaterial::create();
+        meshBasicMaterial->color = 0xFF0000;
+        _mesh = Mesh::create(geometry, meshBasicMaterial);
         _mesh->position.x = position_x;
         _mesh->name = "sphere";
         _mesh->geometry()->computeBoundingSphere();
@@ -46,6 +46,7 @@ public:
         if (input.reset) {
             reset();
         }
+
     };
 
     void move_forwards(float dt) {
@@ -69,10 +70,19 @@ public:
         _mesh->position.z = 0;
 
     }
+    void changeColor() {
+        meshBasicMaterial->color = newColor;
+    }
+    void updateColor(int hexColor){
+        newColor = hexColor;
+        changeColor();
+    }
 
 private:
     std::shared_ptr<threepp::Mesh> _mesh;
     const float speed = 4.f;
+    int newColor = 0xFF0000;
+    std::shared_ptr<threepp::MeshBasicMaterial> meshBasicMaterial;
 
 
 };
