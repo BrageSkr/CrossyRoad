@@ -27,22 +27,20 @@ public:
 
     }
 
-    std::shared_ptr<Group> createObstalces(std::shared_ptr<Group> group) {
+    void createObstacles(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2) {
         for (int j = 0; j < 30; ++j) {
             for (int i = -50; i < 50; i += 8) {
                 float width = math::randomInRange(minSize, maxSize);
                 obstacle test;
                 test.obstacleGeometry(width, (j * 2) + 2, i);
                 if (j % 2 == 0) {
-                    group->add(test.mesh());
+                    group2->add(test.mesh());
                 } else {
-                    group->add(test.mesh());
+                    group1->add(test.mesh());
                 }
             }
-        }
+        }}
 
-        return group;
-    };
 
     std::shared_ptr<threepp::Mesh> mesh() {
         return _mesh;
@@ -52,8 +50,8 @@ public:
 
 
 private:
-   const  float maxSize = 8.0f;
-   const  float minSize = 3.0f;
+   const float maxSize = 8.0f;
+   const float minSize = 3.0f;
    std::shared_ptr<threepp::Mesh> _mesh;
 
 

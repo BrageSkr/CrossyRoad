@@ -18,7 +18,7 @@ unsigned int updateHexColor(ImColor color) {
 
 int main() {
     sphere player(0);
-    auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
+  //  auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
     Canvas canvas;
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::whitesmoke);
@@ -26,12 +26,14 @@ int main() {
     camera->rotateZ(270 * toRadians);
     camera->rotateY(-90*toRadians);
     auto scene = Scene::create();
-    auto group = Group::create();
+    auto group1 = Group::create();
+    auto group2 = Group::create();
     scene->add(player.mesh());
-    scene->add(grid);
+    //scene->add(grid);
     obstacle obstacles;
-    obstacles.createObstalces(group);
-    scene->add(group);
+    obstacles.createObstacles(group1,group2);
+    scene->add(group1);
+    scene->add(group2);
     renderer.enableTextRendering();
     auto &textHandle = renderer.textHandle();
     textHandle.setPosition(0, canvas.getSize().height - 30);
@@ -68,10 +70,19 @@ int main() {
         player.update(dt, button);
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
-        group->position.z += 1.f * dt;
+        group2->position.z += math::randomInRange(3.f,5.f) * dt;
+        group1->position.z += math::randomInRange(2.f,3.f) * dt;
         bool hasCollision = false;
 
-        for (auto &obstacle: group->children) {
+        for (auto &obstacle: group1->children) {
+            auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
+            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(*obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
+
+            if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
+                hasCollision = true;
+            }
+        }
+        for (auto &obstacle: group2->children) {
             auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
             auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(*obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
 
@@ -80,12 +91,14 @@ int main() {
             }
         }
 
+
         if (hasCollision) {
             player.reset();
         }
 
-        if (group->position.z >= 20) {
-            group->position.z = -20;
+        if (group1->position.z >= 20) {
+            group1->position.z = -20;
+            group2->position.z = -20;
         }
         unsigned int hexColor = updateHexColor(color);
         player.updateColor(hexColor);
