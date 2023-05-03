@@ -72,31 +72,15 @@ int main() {
     int group2SpeedDirection = 1;
     canvas.animate([&](float dt) {  //f
         keyInput button = keyListner_.getKeyInput();
-        player.update(dt, button);
+        unsigned int hexColor = updateHexColor(color);
+        player.update(dt, button, hexColor);
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
         group2->position.z += math::randomInRange(3.f, 5.f) * dt * group2SpeedDirection;
         group1->position.z += math::randomInRange(2.f, 3.f) * dt * group1SpeedDirection;
         bool hasCollision = false;
 
-        for (auto &obstacle: group1->children) {
-            auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
-            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
-                    *obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
-
-            if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
-                hasCollision = true;
-            }
-        }
-        for (auto &obstacle: group2->children) {
-            auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
-            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
-                    *obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
-
-            if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
-                hasCollision = true;
-            }
-        }
+      obstacles.updateHitbox(group1,group2,hasCollision,playerWorldBoundingSphere);
 
 
         if (hasCollision) {
@@ -115,8 +99,6 @@ int main() {
         if (group2->position.z <= -20) {
             group2SpeedDirection = 1;
         }
-        unsigned int hexColor = updateHexColor(color);
-        player.updateColor(hexColor);
         distance = player.mesh()->position.x;
         score = distance / 2;
         if (score < 0) {
@@ -128,10 +110,9 @@ int main() {
         if (player.mesh()->position.x > 60) {
             player.mesh()->position.x = 0;
         }
-
         camera1.updateCamera(camera,cameraButtonClicked,player1,hasCameraRotated1,hasCameraRotated);
         renderer.render(scene, camera);
-        textHandle.setText("Hi-Score: " + std::to_string(cameraButtonClicked) + " Score: " + std::to_string(score));
+        textHandle.setText("Hi-Score: " + std::to_string(hightestScore) + " Score: " + std::to_string(score));
         ui.render();
 
     });

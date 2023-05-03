@@ -41,6 +41,27 @@ public:
             }
         }
     }
+    void updateHitbox (std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2,bool &hasCollision,threepp::Sphere playerWorldBoundingSphere){
+
+        for (auto &obstacle: group1->children) {
+            auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
+            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
+                    *obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
+
+            if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
+                hasCollision = true;
+            }
+        }
+        for (auto &obstacle: group2->children) {
+            auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
+            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
+                    *obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
+
+            if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
+                hasCollision = true;
+            }
+        }
+    }
 
 
     std::shared_ptr<threepp::Mesh> mesh() {

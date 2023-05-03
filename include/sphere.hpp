@@ -29,7 +29,7 @@ public:
         return _mesh;  //returns the _mesh as a shared pointer
     }
 
-    void update(float dt, const keyInput &input) {
+    void update(float dt, const keyInput &input, int hexColor) {
         if (input.up) {
             move_forwards(dt);
         }
@@ -45,6 +45,7 @@ public:
         if (input.reset) {
             reset();
         }
+        updateColor(hexColor);
 
     };
 
