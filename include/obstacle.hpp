@@ -32,7 +32,7 @@ public:
             for (int i = -50; i < 50; i += 8) {
                 float width = math::randomInRange(minSize, maxSize);
                 obstacle test;
-                test.obstacleGeometry(width, (j * 2) + 2, i);
+                test.obstacleGeometry(width, (j * 3) + 2, i);
                 if (j % 2 == 0) {
                     group2->add(test.mesh());
                 } else {
@@ -50,7 +50,7 @@ public:
 
 
 private:
-   const float maxSize = 8.0f;
+   const float maxSize = 7.5f;
    const float minSize = 3.0f;
    std::shared_ptr<threepp::Mesh> _mesh;
 

@@ -21,7 +21,7 @@ int main() {
   //  auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
     Canvas canvas;
     GLRenderer renderer(canvas);
-    renderer.setClearColor(Color::whitesmoke);
+    renderer.setClearColor(Color::aliceblue);
     auto camera = PerspectiveCamera::create();
     camera->rotateZ(270 * toRadians);
     camera->rotateY(-90*toRadians);
@@ -40,15 +40,16 @@ int main() {
     textHandle.scale = 2;
 
     ImColor color(1.0, 0.0f, 0.0f, 1.0f);
-    bool buttonClicked = false;
+    bool cameraButtonClicked = false;
     imgui_functional_context ui(canvas.window_ptr(), [&] {
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
         ImGui::SetNextWindowSize({150, 0}, 0);
         ImGui::Begin("Color Picker");
         ImGui::ColorPicker4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
         if (ImGui::Button("Change camera")) {
-            buttonClicked = !buttonClicked;
+            cameraButtonClicked = !cameraButtonClicked;
         }
+
         ImGui::End();
     });
 
@@ -65,13 +66,15 @@ int main() {
     int hightestScore = 0;
     bool hasCameraRotated = false;
     bool hasCameraRotated1 = false;
+    int group1SpeedDirection = 1;
+    int group2SpeedDirection = 1;
     canvas.animate([&](float dt) {  //f
         keyInput button = keyListner_.getKeyInput();
         player.update(dt, button);
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
-        group2->position.z += math::randomInRange(3.f,5.f) * dt;
-        group1->position.z += math::randomInRange(2.f,3.f) * dt;
+        group2->position.z += math::randomInRange(3.f,5.f) * dt * group2SpeedDirection;
+        group1->position.z += math::randomInRange(2.f,3.f) * dt * group1SpeedDirection;
         bool hasCollision = false;
 
         for (auto &obstacle: group1->children) {
@@ -97,8 +100,16 @@ int main() {
         }
 
         if (group1->position.z >= 20) {
-            group1->position.z = -20;
-            group2->position.z = -20;
+            group1SpeedDirection = -1;
+        }
+        if (group2->position.z >= 20) {
+            group2SpeedDirection = -1;
+        }
+        if (group1->position.z <= -20) {
+            group1SpeedDirection = 1;
+        }
+        if (group2->position.z <= -20) {
+            group2SpeedDirection = 1;
         }
         unsigned int hexColor = updateHexColor(color);
         player.updateColor(hexColor);
@@ -113,7 +124,7 @@ int main() {
         if (player.mesh()->position.x>60){
             player.mesh()->position.x = 0;
         }
-        if (buttonClicked) {
+        if (cameraButtonClicked) {
             camera->position.y = 1.f;
             camera->position.x = player.mesh()->position.x - 2.5;
             camera->position.z = player.mesh()->position.z;
@@ -124,7 +135,7 @@ int main() {
 
         }
 
-        if (!buttonClicked) {
+        if (!cameraButtonClicked) {
             camera->position.y = 15;
             camera->position.x = player.mesh()->position.x - 5;
             camera->position.z = player.mesh()->position.z;
@@ -133,12 +144,12 @@ int main() {
                 hasCameraRotated1 = true;
             }
         }
-        if (!buttonClicked && hasCameraRotated) {
+        if (!cameraButtonClicked && hasCameraRotated) {
             camera->rotateX(-60 * toRadians);
             hasCameraRotated = false;
         }
 
-        if (buttonClicked && hasCameraRotated1) {
+        if (cameraButtonClicked && hasCameraRotated1) {
             camera->rotateX(-30 * toRadians);
             hasCameraRotated1 = false;
         }
