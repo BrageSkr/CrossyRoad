@@ -8,7 +8,7 @@ find_package(imgui CONFIG)
 find_package(imgui CONFIG REQUIRED)
 
 
-add_executable(eksamenOOP app/main.cpp include/obstacle.hpp include/sphere.hpp include/myKeylistener.hpp include/camera.hpp)
+add_executable(eksamenOOP app/main.cpp include/obstacle.hpp include/sphere.hpp include/myKeylistener.hpp include/camera.hpp include/gameLogic.hpp)
 target_link_libraries(eksamenOOP PRIVATE threepp::threepp imgui::imgui)
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/include")
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/app")

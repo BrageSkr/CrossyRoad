@@ -6,9 +6,7 @@
 
 #include "threepp/threepp.hpp"
 #include "threepp/extras/imgui/imgui_context.hpp"
-#include <array>
-#include <string>
-#include <iostream>
+
 
 using namespace threepp;
 

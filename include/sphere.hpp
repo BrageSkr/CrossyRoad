@@ -3,9 +3,6 @@
 
 #include "threepp/threepp.hpp"
 #include "threepp/extras/imgui/imgui_context.hpp"
-#include <array>
-#include <string>
-#include <iostream>
 #include <myKeylistener.hpp>
 
 
@@ -29,7 +26,7 @@ public:
         return _mesh;  //returns the _mesh as a shared pointer
     }
 
-    void update(float dt, const keyInput &input, int hexColor) {
+    void update(float dt, const keyInput &input, int hexColor, bool hasCollision) {
         if (input.up) {
             move_forwards(dt);
         }
@@ -43,6 +40,9 @@ public:
             move_left(dt);
         }
         if (input.reset) {
+            reset();
+        }
+        if (hasCollision){
             reset();
         }
         updateColor(hexColor);

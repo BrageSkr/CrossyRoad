@@ -3,7 +3,7 @@
 #define EKSAMENOOP_MYKEYLISTENER_HPP
 
 #include "threepp/threepp.hpp"
-#include <sphere.hpp>
+
 
 struct keyInput {
     bool left = false;

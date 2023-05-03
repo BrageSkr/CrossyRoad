@@ -1,13 +1,11 @@
-
-#include <sstream>
 #include "threepp/threepp.hpp"
 #include "threepp/extras/imgui/imgui_context.hpp"
 #include "obstacle.hpp"
 #include "sphere.hpp"
 #include "camera.hpp"
+#include "gameLogic.hpp"
 
 using namespace threepp;
-const float toRadians = 3.14159265358979323846264 / 180;
 
 unsigned int updateHexColor(ImColor color) {
     unsigned int hexColor = ((unsigned int) (color.Value.x * 255.0f) << 16) |
@@ -22,14 +20,15 @@ int main() {
     Canvas canvas;
     myCamera camera1;
     auto camera = camera1.camera(canvas);
+    auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
     auto player1 = player.mesh();
     auto scene = Scene::create();
     auto group1 = Group::create();
     auto group2 = Group::create();
+    scene->add(grid);
     scene->add(player.mesh());
-    //scene->add(grid);
     obstacle obstacles;
     obstacles.createObstacles(group1, group2);
     scene->add(group1);
@@ -68,37 +67,17 @@ int main() {
     int hightestScore = 0;
     bool hasCameraRotated = false;
     bool hasCameraRotated1 = false;
-    int group1SpeedDirection = 1;
-    int group2SpeedDirection = 1;
-    canvas.animate([&](float dt) {  //f
+   GameLogic gameLogicInst;
+    canvas.animate([&](float dt) {
         keyInput button = keyListner_.getKeyInput();
         unsigned int hexColor = updateHexColor(color);
-        player.update(dt, button, hexColor);
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
-        group2->position.z += math::randomInRange(3.f, 5.f) * dt * group2SpeedDirection;
-        group1->position.z += math::randomInRange(2.f, 3.f) * dt * group1SpeedDirection;
         bool hasCollision = false;
+         obstacles.updateHitbox(group1,group2,hasCollision,playerWorldBoundingSphere);
+         player.update(dt, button, hexColor,hasCollision);
+        gameLogicInst.updateGame(player1,group1,group2,dt);
 
-      obstacles.updateHitbox(group1,group2,hasCollision,playerWorldBoundingSphere);
-
-
-        if (hasCollision) {
-            player.reset();
-        }
-
-        if (group1->position.z >= 20) {
-            group1SpeedDirection = -1;
-        }
-        if (group2->position.z >= 20) {
-            group2SpeedDirection = -1;
-        }
-        if (group1->position.z <= -20) {
-            group1SpeedDirection = 1;
-        }
-        if (group2->position.z <= -20) {
-            group2SpeedDirection = 1;
-        }
         distance = player.mesh()->position.x;
         score = distance / 2;
         if (score < 0) {
@@ -107,14 +86,10 @@ int main() {
         if (score > hightestScore) {
             hightestScore = score;
         }
-        if (player.mesh()->position.x > 60) {
-            player.mesh()->position.x = 0;
-        }
         camera1.updateCamera(camera,cameraButtonClicked,player1,hasCameraRotated1,hasCameraRotated);
         renderer.render(scene, camera);
         textHandle.setText("Hi-Score: " + std::to_string(hightestScore) + " Score: " + std::to_string(score));
         ui.render();
-
     });
 
 }
