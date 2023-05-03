@@ -4,6 +4,7 @@
 #include "threepp/extras/imgui/imgui_context.hpp"
 #include "obstacle.hpp"
 #include "sphere.hpp"
+#include "camera.hpp"
 
 using namespace threepp;
 const float toRadians = 3.14159265358979323846264 / 180;
@@ -18,20 +19,19 @@ unsigned int updateHexColor(ImColor color) {
 
 int main() {
     sphere player(0);
-  //  auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
     Canvas canvas;
+    myCamera camera1;
+    auto camera = camera1.camera(canvas);
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
-    auto camera = PerspectiveCamera::create();
-    camera->rotateZ(270 * toRadians);
-    camera->rotateY(-90*toRadians);
+    auto player1 = player.mesh();
     auto scene = Scene::create();
     auto group1 = Group::create();
     auto group2 = Group::create();
     scene->add(player.mesh());
     //scene->add(grid);
     obstacle obstacles;
-    obstacles.createObstacles(group1,group2);
+    obstacles.createObstacles(group1, group2);
     scene->add(group1);
     scene->add(group2);
     renderer.enableTextRendering();
@@ -45,7 +45,9 @@ int main() {
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
         ImGui::SetNextWindowSize({150, 0}, 0);
         ImGui::Begin("Color Picker");
-        ImGui::ColorPicker4("Color", reinterpret_cast<float*>(&color), ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
+        ImGui::ColorPicker4("Color", reinterpret_cast<float *>(&color),
+                            ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel |
+                            ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
         if (ImGui::Button("Change camera")) {
             cameraButtonClicked = !cameraButtonClicked;
         }
@@ -73,13 +75,14 @@ int main() {
         player.update(dt, button);
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
-        group2->position.z += math::randomInRange(3.f,5.f) * dt * group2SpeedDirection;
-        group1->position.z += math::randomInRange(2.f,3.f) * dt * group1SpeedDirection;
+        group2->position.z += math::randomInRange(3.f, 5.f) * dt * group2SpeedDirection;
+        group1->position.z += math::randomInRange(2.f, 3.f) * dt * group1SpeedDirection;
         bool hasCollision = false;
 
         for (auto &obstacle: group1->children) {
             auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
-            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(*obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
+            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
+                    *obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
 
             if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
                 hasCollision = true;
@@ -87,7 +90,8 @@ int main() {
         }
         for (auto &obstacle: group2->children) {
             auto obstacleBoundingBox = obstacle->geometry()->boundingBox; // get bounding box of obstacle
-            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(*obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
+            auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(
+                    *obstacle->matrixWorld);// compute the world-space bounding box of the obstacle
 
             if (playerWorldBoundingSphere.intersectsBox(obstacleWorldBoundingBox)) {
                 hasCollision = true;
@@ -114,49 +118,20 @@ int main() {
         unsigned int hexColor = updateHexColor(color);
         player.updateColor(hexColor);
         distance = player.mesh()->position.x;
-        score = distance/2;
-        if(score<0){
+        score = distance / 2;
+        if (score < 0) {
             score = 0;
         }
-        if(score > hightestScore){
+        if (score > hightestScore) {
             hightestScore = score;
         }
-        if (player.mesh()->position.x>60){
+        if (player.mesh()->position.x > 60) {
             player.mesh()->position.x = 0;
         }
-        if (cameraButtonClicked) {
-            camera->position.y = 1.f;
-            camera->position.x = player.mesh()->position.x - 2.5;
-            camera->position.z = player.mesh()->position.z;
-            if (!hasCameraRotated) {
-                camera->rotateX(60 * toRadians);
-                hasCameraRotated = true;
-            }
 
-        }
-
-        if (!cameraButtonClicked) {
-            camera->position.y = 15;
-            camera->position.x = player.mesh()->position.x - 5;
-            camera->position.z = player.mesh()->position.z;
-            if (!hasCameraRotated1) {
-                camera->rotateX(30 * toRadians);
-                hasCameraRotated1 = true;
-            }
-        }
-        if (!cameraButtonClicked && hasCameraRotated) {
-            camera->rotateX(-60 * toRadians);
-            hasCameraRotated = false;
-        }
-
-        if (cameraButtonClicked && hasCameraRotated1) {
-            camera->rotateX(-30 * toRadians);
-            hasCameraRotated1 = false;
-        }
-
-
+        camera1.updateCamera(camera,cameraButtonClicked,player1,hasCameraRotated1,hasCameraRotated);
         renderer.render(scene, camera);
-        textHandle.setText("Hi-Score: " + std::to_string(hightestScore)+ " Score: " + std::to_string(score));
+        textHandle.setText("Hi-Score: " + std::to_string(cameraButtonClicked) + " Score: " + std::to_string(score));
         ui.render();
 
     });

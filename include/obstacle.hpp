@@ -15,7 +15,7 @@ using namespace threepp;
 class obstacle {
 public:
 
-  void  obstacleGeometry(float w, float p, float pz) { //creates the obstacle and returns a mesh
+    void obstacleGeometry(float w, float p, float pz) { //creates the obstacle and returns a mesh
         auto geometry = BoxGeometry::create(1, 1, w);
         auto material = MeshBasicMaterial::create();
         material->color.randomize();
@@ -39,7 +39,8 @@ public:
                     group1->add(test.mesh());
                 }
             }
-        }}
+        }
+    }
 
 
     std::shared_ptr<threepp::Mesh> mesh() {
@@ -47,12 +48,10 @@ public:
     }
 
 
-
-
 private:
-   const float maxSize = 7.5f;
-   const float minSize = 3.0f;
-   std::shared_ptr<threepp::Mesh> _mesh;
+    const float maxSize = 7.5f;
+    const float minSize = 3.0f;
+    std::shared_ptr<threepp::Mesh> _mesh;
 
 
 };

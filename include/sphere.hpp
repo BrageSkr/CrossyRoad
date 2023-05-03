@@ -25,7 +25,6 @@ public:
     }
 
 
-
     std::shared_ptr<threepp::Mesh> mesh() {
         return _mesh;  //returns the _mesh as a shared pointer
     }
@@ -70,10 +69,12 @@ public:
         _mesh->position.z = 0;
 
     }
+
     void changeColor() {
         meshBasicMaterial->color = newColor;
     }
-    void updateColor(int hexColor){
+
+    void updateColor(int hexColor) {
         newColor = hexColor;
         changeColor();
     }

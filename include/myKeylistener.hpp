@@ -15,7 +15,8 @@ struct keyInput {
 
 class myKeyListener : public KeyListener {
 public:
-    void onKeyPressed(KeyEvent evt) { //keylistner that monitors button presses, and changes the boolean for direction accordingly
+    void onKeyPressed(
+            KeyEvent evt) { //keylistner that monitors button presses, and changes the boolean for direction accordingly
         if (evt.key == 87 /*w*/) {
             keyInput_.up = true;
         } else if (evt.key == 83/*s*/) {
@@ -30,7 +31,8 @@ public:
         }
     };
 
-    void onKeyReleased(KeyEvent evt) { //keylistner that monitors if a button is released, and changes the boolean for direction accordingly
+    void onKeyReleased(
+            KeyEvent evt) { //keylistner that monitors if a button is released, and changes the boolean for direction accordingly
         if (evt.key == 87/*w*/) {
             keyInput_.up = false;
         } else if (evt.key == 83/*s*/) {
