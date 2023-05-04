@@ -30,19 +30,19 @@ public:
         if (input.up) {
             move_forwards(dt);
         }
-        if (input.down) {
+        else if (input.down) {
             move_backwards(dt);
         }
-        if (input.right) {
+        else if (input.right) {
             move_right(dt);
         }
-        if (input.left) {
+        else if(input.left) {
             move_left(dt);
         }
-        if (input.reset) {
+        else if(input.reset) {
             reset();
         }
-        if (hasCollision){
+        else if(hasCollision){
             reset();
         }
         updateColor(hexColor);
@@ -78,6 +78,9 @@ public:
     void updateColor(int hexColor) {
         newColor = hexColor;
         changeColor();
+    }
+    int getColor(){
+        return newColor;
     }
 
 private:
