@@ -42,7 +42,7 @@ public:
         else if(input.reset) {
             reset();
         }
-        else if(hasCollision){
+        if(hasCollision){
             reset();
         }
         updateColor(hexColor);
@@ -85,7 +85,7 @@ public:
 
 private:
     std::shared_ptr<threepp::Mesh> _mesh;
-    const float speed = 8.f;
+    const float speed = 6.f;
     int newColor = 0xFF0000;
     std::shared_ptr<threepp::MeshBasicMaterial> meshBasicMaterial;
 

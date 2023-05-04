@@ -13,6 +13,7 @@ unsigned int updateHexColor(ImColor color) {
                             ((unsigned int) (color.Value.z * 255.0f));
     return hexColor;
 }
+
 class GameLogic {
 public:
     void updateGame (std::shared_ptr<threepp::Mesh> player,std::shared_ptr<threepp::Group> group1,std::shared_ptr<threepp::Group> group2, float dt){

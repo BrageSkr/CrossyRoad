@@ -68,8 +68,8 @@ int main() {
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
         bool hasCollision = false;
-         obstacles.updateHitbox(group1,group2,hasCollision,playerWorldBoundingSphere);
-         player.update(dt, button, hexColor,hasCollision);
+        obstacles.updateHitbox(group1,group2,hasCollision,playerWorldBoundingSphere);
+        player.update(dt, button, hexColor,hasCollision);
         gameLogicInst.updateGame(player1,group1,group2,dt);
 
         distance = player.mesh()->position.x;
