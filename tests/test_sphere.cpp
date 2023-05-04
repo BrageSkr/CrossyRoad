@@ -1,4 +1,4 @@
-#include "obstacle.hpp"
+
 #include "sphere.hpp"
 
 #define CATCH_CONFIG_MAIN

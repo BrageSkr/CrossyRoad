@@ -5,8 +5,14 @@
 #ifndef EKSAMENOOP_GAMELOGIC_HPP
 #define EKSAMENOOP_GAMELOGIC_HPP
 #include "threepp/threepp.hpp"
-
+#include "threepp/extras/imgui/imgui_context.hpp"
 using namespace threepp;
+unsigned int updateHexColor(ImColor color) {
+    unsigned int hexColor = ((unsigned int) (color.Value.x * 255.0f) << 16) |
+                            ((unsigned int) (color.Value.y * 255.0f) << 8) |
+                            ((unsigned int) (color.Value.z * 255.0f));
+    return hexColor;
+}
 class GameLogic {
 public:
     void updateGame (std::shared_ptr<threepp::Mesh> player,std::shared_ptr<threepp::Group> group1,std::shared_ptr<threepp::Group> group2, float dt){
