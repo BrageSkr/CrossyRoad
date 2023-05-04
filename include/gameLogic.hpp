@@ -1,6 +1,3 @@
-//
-// Created by Brage Skrettingland on 03/05/2023.
-//
 
 #ifndef EKSAMENOOP_GAMELOGIC_HPP
 #define EKSAMENOOP_GAMELOGIC_HPP
@@ -51,15 +48,15 @@ public:
         if (score < 0) {
             score = 0;
         }
-        if (score > hightestScore) {
-            hightestScore = score;
+        if (score > highestScore) {
+            highestScore = score;
         }
     }
     int getScore(){
         return score;
     }
-    int getHightestScore(){
-        return hightestScore;
+    int getHighestScore(){
+        return highestScore;
     }
 
 private:
@@ -71,6 +68,6 @@ private:
     int minPositionX = 0;
     int distance = 0;
     int score = 0;
-    int hightestScore = 0;
+    int highestScore = 0;
 };
 #endif //EKSAMENOOP_GAMELOGIC_HPP

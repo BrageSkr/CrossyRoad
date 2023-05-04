@@ -14,7 +14,7 @@ int main() {
     Canvas canvas;
     myCamera camera1;
     auto camera = camera1.camera(canvas);
-    auto grid = GridHelper::create(100, 100, Color::green, Color::pink);
+    auto grid = GridHelper::create(1000, 1000, Color::green, Color::pink);
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
     auto player1 = player.mesh();
@@ -22,7 +22,7 @@ int main() {
     auto group1 = Group::create();
     auto group2 = Group::create();
     scene->add(grid);
-    scene->add(player.mesh());
+    scene->add(player1);
     obstacle obstacles;
     obstacles.createObstacles(group1, group2);
     scene->add(group1);
@@ -65,7 +65,7 @@ int main() {
         auto playerBoundingSphere = player.mesh()->geometry()->boundingSphere; // get bounding box of player
         auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player.mesh()->matrixWorld));
         bool hasCollision = false;
-        int highestScore = gameLogicInst.getHightestScore();
+        int highestScore = gameLogicInst.getHighestScore();
         int score = gameLogicInst.getScore();
         obstacles.updateHitbox(group1,group2,hasCollision,playerWorldBoundingSphere);
         player.update(dt, button, hexColor,hasCollision);
