@@ -4,10 +4,9 @@
 #include "sphere.hpp"
 #include "camera.hpp"
 #include "gameLogic.hpp"
+#include "functions.hpp"
 
 using namespace threepp;
-
-
 
 int main() {
     sphere player(0);

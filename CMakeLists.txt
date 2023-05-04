@@ -8,9 +8,9 @@ find_package(imgui CONFIG)
 find_package(imgui CONFIG REQUIRED)
 
 
-add_executable(eksamenOOP app/main.cpp)
+add_executable(eksamenOOP app/main.cpp )
 target_link_libraries(eksamenOOP PRIVATE threepp::threepp imgui::imgui)
-
+target_link_libraries(eksamenOOP PUBLIC headerLib)
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/include")
 target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/app")
 
@@ -25,6 +25,7 @@ FetchContent_MakeAvailable(Catch2)
 
 enable_testing()
 add_subdirectory(tests)
+add_subdirectory(src)
 
 
 
