@@ -46,8 +46,21 @@ public:
         if (player->position.z <= minPositionZ) {
             player->position.z = minPositionZ;
         }
+        distance = player->position.x;
+        score = distance / 2;
+        if (score < 0) {
+            score = 0;
+        }
+        if (score > hightestScore) {
+            hightestScore = score;
+        }
     }
-    
+    int getScore(){
+        return score;
+    }
+    int getHightestScore(){
+        return hightestScore;
+    }
 
 private:
     int group1SpeedDirection = 1;
@@ -56,5 +69,8 @@ private:
     int minPositionZ = -20;
     int maxPositionX = 60;
     int minPositionX = 0;
+    int distance = 0;
+    int score = 0;
+    int hightestScore = 0;
 };
 #endif //EKSAMENOOP_GAMELOGIC_HPP
