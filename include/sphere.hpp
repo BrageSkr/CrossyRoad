@@ -82,7 +82,7 @@ public:
 
 private:
     std::shared_ptr<threepp::Mesh> _mesh;
-    const float speed = 4.f;
+    const float speed = 8.f;
     int newColor = 0xFF0000;
     std::shared_ptr<threepp::MeshBasicMaterial> meshBasicMaterial;
 

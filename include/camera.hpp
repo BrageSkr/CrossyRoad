@@ -18,19 +18,19 @@ public:
     void updateCamera(std::shared_ptr<threepp::PerspectiveCamera> camera, bool &cameraButtonClicked,
                       std::shared_ptr<threepp::Mesh> player, bool &hasCameraRotated, bool &hasCameraRotated1) {
         if (cameraButtonClicked) {
-            camera->position.y = 1.f;
-            camera->position.x = player->position.x - 3;
+            camera->position.y = cameraCloseY;
+            camera->position.x = player->position.x - cameraDistanceCloseX;
             camera->position.z = player->position.z;
             if (!hasCameraRotated) {
-                camera->rotateX(math::degToRad(60));
+                camera->rotateX(math::degToRad(50));
                 hasCameraRotated = true;
             }
 
         }
 
         if (!cameraButtonClicked) {
-            camera->position.y = 15;
-            camera->position.x = player->position.x - 5;
+            camera->position.y = cameraStartY;
+            camera->position.x = player->position.x - cameraDistanceFarX;
             camera->position.z = player->position.z;
             if (!hasCameraRotated1) {
                 camera->rotateX(math::degToRad(30));
@@ -38,7 +38,7 @@ public:
             }
         }
         if (!cameraButtonClicked && hasCameraRotated) {
-            camera->rotateX(math::degToRad(-60));
+            camera->rotateX(math::degToRad(-50));
             hasCameraRotated = false;
         }
 
@@ -49,6 +49,10 @@ public:
     }
 private:
     std::shared_ptr<threepp::PerspectiveCamera> _camera;
+    const int cameraStartY = 15;
+    const int cameraCloseY = 2;
+    const int cameraDistanceFarX = 5;
+    const int cameraDistanceCloseX = 3;
 };
 
 #endif //EKSAMENOOP_CAMERA_HPP
