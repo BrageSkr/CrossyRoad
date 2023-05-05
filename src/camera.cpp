@@ -9,7 +9,7 @@ std::shared_ptr<threepp::PerspectiveCamera> myCamera::camera(threepp::Canvas &ca
 }
 
 void myCamera::updateCamera(std::shared_ptr<threepp::PerspectiveCamera> camera, bool &cameraButtonClicked,
-                            std::shared_ptr<threepp::Mesh> player, bool &hasCameraRotated, bool &hasCameraRotated1) {
+                            std::shared_ptr<threepp::Mesh> player) {
     if (cameraButtonClicked) {
         camera->position.y = cameraCloseY;
         camera->position.x = player->position.x - cameraDistanceCloseX;

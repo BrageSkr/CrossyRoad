@@ -55,23 +55,21 @@ int main() {
     });
     myKeyListener keyListner_;
     canvas.addKeyListener(&keyListner_); //adding the keylistner in the class to the canvas
-    bool hasCameraRotated = false;
-    bool hasCameraRotated1 = false;
+
     GameLogic gameLogicInst;
     canvas.animate([&](float dt) {
+
         keyInput button = keyListner_.getKeyInput();
         unsigned int hexColor = updateHexColor(color);
         bool hasCollision = false;
-        int highestScore = gameLogicInst.getHighestScore();
-        int score = gameLogicInst.getScore();
+
         obstacles.updateHitbox(group1, group2, hasCollision, player1);
         player.update(dt, button, hexColor, hasCollision);
-        gameLogicInst.updateGame(player1, group1, group2, dt);
+        gameLogicInst.updateGame(player1, group1, group2, dt, textHandle,hasCollision);
 
-
-        camera1.updateCamera(camera, cameraButtonClicked, player1, hasCameraRotated1, hasCameraRotated);
+        camera1.updateCamera(camera, cameraButtonClicked, player1);
         renderer.render(scene, camera);
-        textHandle.setText("Hi-Score: " + std::to_string(highestScore) + " Score: " + std::to_string(score));
+
         ui.render();
     });
 

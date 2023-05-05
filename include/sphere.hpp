@@ -30,7 +30,6 @@ public:
 
     void updateColor(int hexColor);
 
-    int getColor();
 
 private:
     std::shared_ptr<threepp::Mesh> _mesh;

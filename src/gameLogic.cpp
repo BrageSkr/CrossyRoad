@@ -1,7 +1,7 @@
 #include "../include/gameLogic.hpp"
 
 void GameLogic::updateGame(std::shared_ptr<threepp::Mesh> player, std::shared_ptr<threepp::Group> group1,
-                           std::shared_ptr<threepp::Group> group2, float dt) {
+                           std::shared_ptr<threepp::Group> group2, float dt, TextHandle& textHandle, bool hasCollision) {
     group2->position.z += math::randomInRange(3.f, 5.f) * dt * group2SpeedDirection;
     group1->position.z += math::randomInRange(2.f, 3.f) * dt * group1SpeedDirection;
 
@@ -19,6 +19,7 @@ void GameLogic::updateGame(std::shared_ptr<threepp::Mesh> player, std::shared_pt
     }
 
     if (player->position.x > maxPositionX) {
+        totalDistance += maxPositionX;
         player->position.x = minPositionX;
     }
     if (player->position.x < minPositionX) {
@@ -26,25 +27,30 @@ void GameLogic::updateGame(std::shared_ptr<threepp::Mesh> player, std::shared_pt
     }
 
     if (player->position.z >= maxPositionZ) {
-        player->position.z = maxPositionZ;
+
     }
     if (player->position.z <= minPositionZ) {
         player->position.z = minPositionZ;
+
     }
-    distance = player->position.x;
-    score = distance / 2;
-    if (score < 0) {
-        score = 0;
+    if (hasCollision){
+        totalDistance = 0;
+    }
+
+    distance = player->position.x + totalDistance;
+    score = distance / 3;
+
+    if (score > highestScore) {
+        highestScore = score;
     }
     if (score > highestScore) {
         highestScore = score;
     }
+    setTextHandle(textHandle);
+
 }
 
-int GameLogic::getScore() {
-    return score;
-}
+void GameLogic::setTextHandle (TextHandle& textHandle){
 
-int GameLogic::getHighestScore() {
-    return highestScore;
+    textHandle.setText("Hi-Score: " + std::to_string(highestScore) + " Score: " + std::to_string(score));
 }

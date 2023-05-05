@@ -62,6 +62,4 @@ void sphere::updateColor(int hexColor) {
     changeColor();
 }
 
-int sphere::getColor() {
-    return newColor;
-}
+

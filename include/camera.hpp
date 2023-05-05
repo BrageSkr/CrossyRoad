@@ -10,7 +10,7 @@ public:
     std::shared_ptr<threepp::PerspectiveCamera> camera(threepp::Canvas &canvas);
 
     void updateCamera(std::shared_ptr<threepp::PerspectiveCamera> camera, bool &cameraButtonClicked,
-                      std::shared_ptr<threepp::Mesh> player, bool &hasCameraRotated, bool &hasCameraRotated1);
+                      std::shared_ptr<threepp::Mesh> player);
 
 private:
     std::shared_ptr<threepp::PerspectiveCamera> _camera;
@@ -18,6 +18,8 @@ private:
     const int cameraCloseY = 2;
     const int cameraDistanceFarX = 5;
     const int cameraDistanceCloseX = 3;
+    bool hasCameraRotated = false;
+    bool hasCameraRotated1 = false;
 };
 
 #endif //EKSAMENOOP_CAMERA_HPP

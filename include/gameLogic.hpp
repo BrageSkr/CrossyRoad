@@ -10,12 +10,9 @@ using namespace threepp;
 class GameLogic {
 public:
     void updateGame(std::shared_ptr<threepp::Mesh> player, std::shared_ptr<threepp::Group> group1,
-                    std::shared_ptr<threepp::Group> group2, float dt);
+                    std::shared_ptr<threepp::Group> group2, float dt,TextHandle& textHandle,bool hasCollision);
 
-    int getScore();
-
-    int getHighestScore();
-
+    void setTextHandle (TextHandle& textHandle);
 private:
     int group1SpeedDirection = 1;
     int group2SpeedDirection = 1;
@@ -26,6 +23,7 @@ private:
     int distance = 0;
     int score = 0;
     int highestScore = 0;
+    int totalDistance = 0;
 };
 
 #endif //EKSAMENOOP_GAMELOGIC_HPP

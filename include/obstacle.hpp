@@ -23,7 +23,7 @@ public:
     std::shared_ptr<threepp::Mesh> mesh();
 
 private:
-    const float maxSize = 7.5f;
+    const float maxSize = 7.0f;
     const float minSize = 3.0f;
     std::shared_ptr<threepp::Mesh> _mesh;
 };
