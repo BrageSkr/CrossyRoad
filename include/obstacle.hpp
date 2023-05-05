@@ -13,8 +13,13 @@ using namespace threepp;
 class obstacle {
 public:
     void obstacleGeometry(float w, float p, float pz);
+
     void createObstacles(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2);
-    void updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2, bool& hasCollision, threepp::Sphere playerWorldBoundingSphere);
+
+    void
+    updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2, bool &hasCollision,
+                 std::shared_ptr<threepp::Mesh> player);
+
     std::shared_ptr<threepp::Mesh> mesh();
 
 private:

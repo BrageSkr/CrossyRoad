@@ -23,7 +23,7 @@ public:
             keyInput_.up = true;
         } else if (evt.key == 83/*s*/ || evt.key == 264 /*downarrow*/) {
             keyInput_.down = true;
-        } else if (evt.key == 68/*d*/ || evt.key ==	262 /*rightarrow*/) {
+        } else if (evt.key == 68/*d*/ || evt.key == 262 /*rightarrow*/) {
             keyInput_.right = true;
         } else if (evt.key == 65/*a*/ || evt.key == 263 /*leftarrow*/) {
             keyInput_.left = true;
@@ -39,7 +39,7 @@ public:
             keyInput_.up = false;
         } else if (evt.key == 83/*s*/ || evt.key == 264 /*downarrow*/) {
             keyInput_.down = false;
-        } else if (evt.key == 68/*d*/ || evt.key ==	262 /*rightarrow*/) {
+        } else if (evt.key == 68/*d*/ || evt.key == 262 /*rightarrow*/) {
             keyInput_.right = false;
         } else if (evt.key == 65/*a*/ || evt.key == 263 /*leftarrow*/) {
             keyInput_.left = false;

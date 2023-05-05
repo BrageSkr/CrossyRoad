@@ -19,16 +19,18 @@ void obstacle::createObstacles(std::shared_ptr<threepp::Group> group1, std::shar
             test.obstacleGeometry(width, (j * 3) + 2, i);
             if (j % 2 == 0) {
                 group2->add(test.mesh());
-            }
-            else {
+            } else {
                 group1->add(test.mesh());
             }
         }
     }
 }
 
-void obstacle::updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2, bool& hasCollision, threepp::Sphere playerWorldBoundingSphere) {
-    for (auto& obstacle : group1->children) {
+void obstacle::updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2,
+                            bool &hasCollision, std::shared_ptr<threepp::Mesh> player) {
+    auto playerBoundingSphere = player->geometry()->boundingSphere; // get bounding box of player
+    auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player->matrixWorld));
+    for (auto &obstacle: group1->children) {
         auto obstacleBoundingBox = obstacle->geometry()->boundingBox;
         auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(*obstacle->matrixWorld);
 
@@ -36,7 +38,7 @@ void obstacle::updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_
             hasCollision = true;
         }
     }
-    for (auto& obstacle : group2->children) {
+    for (auto &obstacle: group2->children) {
         auto obstacleBoundingBox = obstacle->geometry()->boundingBox;
         auto obstacleWorldBoundingBox = obstacleBoundingBox->clone().applyMatrix4(*obstacle->matrixWorld);
 

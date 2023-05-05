@@ -11,15 +11,25 @@ using namespace threepp;
 class sphere {
 public:
     sphere(float position_x);
+
     std::shared_ptr<threepp::Mesh> mesh();
-    void update(float dt, const keyInput& input, int hexColor, bool hasCollision);
+
+    void update(float dt, const keyInput &input, int hexColor, bool hasCollision);
+
     void move_forwards(float dt);
+
     void move_backwards(float dt);
+
     void move_right(float dt);
+
     void move_left(float dt);
+
     void reset();
+
     void changeColor();
+
     void updateColor(int hexColor);
+
     int getColor();
 
 private:

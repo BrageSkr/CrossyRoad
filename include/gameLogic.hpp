@@ -1,15 +1,19 @@
 
 #ifndef EKSAMENOOP_GAMELOGIC_HPP
 #define EKSAMENOOP_GAMELOGIC_HPP
+
 #include "threepp/threepp.hpp"
 #include "threepp/extras/imgui/imgui_context.hpp"
+
 using namespace threepp;
 
 class GameLogic {
 public:
     void updateGame(std::shared_ptr<threepp::Mesh> player, std::shared_ptr<threepp::Group> group1,
                     std::shared_ptr<threepp::Group> group2, float dt);
+
     int getScore();
+
     int getHighestScore();
 
 private:
@@ -23,4 +27,5 @@ private:
     int score = 0;
     int highestScore = 0;
 };
+
 #endif //EKSAMENOOP_GAMELOGIC_HPP

@@ -14,20 +14,16 @@ std::shared_ptr<threepp::Mesh> sphere::mesh() {
     return _mesh;  //returns the _mesh as a shared pointer
 }
 
-void sphere::update(float dt, const keyInput& input, int hexColor, bool hasCollision) {
+void sphere::update(float dt, const keyInput &input, int hexColor, bool hasCollision) {
     if (input.up) {
         move_forwards(dt);
-    }
-    else if (input.down) {
+    } else if (input.down) {
         move_backwards(dt);
-    }
-    else if (input.right) {
+    } else if (input.right) {
         move_right(dt);
-    }
-    else if (input.left) {
+    } else if (input.left) {
         move_left(dt);
-    }
-    else if (input.reset) {
+    } else if (input.reset) {
         reset();
     }
     if (hasCollision) {
