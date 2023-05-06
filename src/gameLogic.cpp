@@ -1,4 +1,4 @@
-#include "../include/gameLogic.hpp"
+#include "gameLogic.hpp"
 
 void GameLogic::updateGame(std::shared_ptr<threepp::Mesh> player, std::shared_ptr<threepp::Group> group1,
                            std::shared_ptr<threepp::Group> group2, float dt, TextHandle& textHandle, bool hasCollision) {

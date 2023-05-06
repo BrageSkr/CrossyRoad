@@ -1,6 +1,6 @@
 
-#ifndef EKSAMENOOP_MYKEYLISTENER_HPP
-#define EKSAMENOOP_MYKEYLISTENER_HPP
+#ifndef CROSSYROAD_MYKEYLISTENER_HPP
+#define CROSSYROAD_MYKEYLISTENER_HPP
 
 #include "threepp/threepp.hpp"
 
@@ -56,4 +56,4 @@ private:
     keyInput keyInput_;
 };
 
-#endif //EKSAMENOOP_MYKEYLISTENER_HPP
+#endif //CROSSYROAD_MYKEYLISTENER_HPP

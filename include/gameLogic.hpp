@@ -1,6 +1,6 @@
 
-#ifndef EKSAMENOOP_GAMELOGIC_HPP
-#define EKSAMENOOP_GAMELOGIC_HPP
+#ifndef CROSSYROAD_GAMELOGIC_HPP
+#define CROSSYROAD_GAMELOGIC_HPP
 
 #include "threepp/threepp.hpp"
 #include "threepp/extras/imgui/imgui_context.hpp"
@@ -26,4 +26,4 @@ private:
     int totalDistance = 0;
 };
 
-#endif //EKSAMENOOP_GAMELOGIC_HPP
+#endif //CROSSYROADGAMELOGIC_HPP

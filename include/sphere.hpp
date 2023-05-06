@@ -1,8 +1,7 @@
-#ifndef EKSAMENOOP_SPHERE_HPP
-#define EKSAMENOOP_SPHERE_HPP
+#ifndef CROSSYROAD_SPHERE_HPP
+#define CROSSYROAD_SPHERE_HPP
 
 #include "threepp/threepp.hpp"
-#include "threepp/extras/imgui/imgui_context.hpp"
 #include "myKeylistener.hpp"
 
 
@@ -39,4 +38,4 @@ private:
 };
 
 
-#endif //EKSAMENOOP_SPHERE_HPP
+#endif //CROSSYROAD_SPHERE_HPP

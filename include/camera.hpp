@@ -1,5 +1,5 @@
-#ifndef EKSAMENOOP_CAMERA_HPP
-#define EKSAMENOOP_CAMERA_HPP
+#ifndef CROSSYROAD_CAMERA_HPP
+#define CROSSYROAD_CAMERA_HPP
 
 #include "threepp/threepp.hpp"
 
@@ -22,4 +22,4 @@ private:
     bool hasCameraRotated1 = false;
 };
 
-#endif //EKSAMENOOP_CAMERA_HPP
+#endif //CROSSYROAD_CAMERA_HPP

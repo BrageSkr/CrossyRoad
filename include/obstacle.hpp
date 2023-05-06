@@ -1,8 +1,6 @@
-//
-// Created by Brage Skrettingland on 25/02/2023.
-//
-#ifndef EKSAMENOOP_OBSTACLE_HPP
-#define EKSAMENOOP_OBSTACLE_HPP
+
+#ifndef CROSSYROAD_OBSTACLE_HPP
+#define CROSSYROAD_OBSTACLE_HPP
 
 #include "threepp/threepp.hpp"
 #include "threepp/extras/imgui/imgui_context.hpp"
@@ -29,7 +27,7 @@ private:
 };
 
 
-#endif //EKSAMENOOP_OBSTACLE_HPP
+#endif //CROSSYROAD_OBSTACLE_HPP
 
 
 

@@ -1,5 +1,5 @@
-#ifndef EKSAMENOOP_FUNCTIONS_HPP
-#define EKSAMENOOP_FUNCTIONS_HPP
+#ifndef CROSSYROAD_FUNCTIONS_HPP
+#define CROSSYROAD_FUNCTIONS_HPP
 
 #include "threepp/extras/imgui/imgui_context.hpp"
 
@@ -10,4 +10,4 @@ unsigned int updateHexColor(ImColor color) {
     return hexColor;
 }
 
-#endif //EKSAMENOOP_FUNCTIONS_HPP
+#endif //CROSSYROAD_FUNCTIONS_HPP
