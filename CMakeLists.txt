@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(EksamenOOP)
+project(CrossyRoad)
 
 set(CMAKE_CXX_STANDARD 17)
 find_package(threepp CONFIG REQUIRED)
@@ -8,11 +8,11 @@ find_package(imgui CONFIG)
 find_package(imgui CONFIG REQUIRED)
 
 
-add_executable(eksamenOOP app/main.cpp)
-target_link_libraries(eksamenOOP PRIVATE threepp::threepp imgui::imgui)
-target_link_libraries(eksamenOOP PUBLIC headerLib)
-target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/include")
-target_include_directories(eksamenOOP PUBLIC "${CMAKE_SOURCE_DIR}/app")
+add_executable(CrossyRoad app/main.cpp)
+target_link_libraries(CrossyRoad PRIVATE threepp::threepp imgui::imgui)
+target_link_libraries(CrossyRoad PUBLIC headerLib)
+target_include_directories(CrossyRoad PUBLIC "${CMAKE_SOURCE_DIR}/include")
+target_include_directories(CrossyRoad PUBLIC "${CMAKE_SOURCE_DIR}/app")
 
 
 include(FetchContent)

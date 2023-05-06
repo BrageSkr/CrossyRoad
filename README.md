@@ -1,15 +1,17 @@
-# Crossy road using threepp (placeholder content)
+# Crossy-road
 
 ## Description
 
-This code creates a simple 3D scene using the Threepp and ImGui libaries. It includes a player sphere, a grid helper,
-and multiple randomly generated obstacles The program initializes a 3D scene and adds a player sphere, a grid helper,
-and multiple randomly generated obstacles. The player can be moved using the wasd keys, and the obstacles (no hitbox
-yet..) will move as a group across the screen.
+This is a simple crossy-road style game, bulit using threepp (a c++ port of three.js). Where the player is a sphere and the obstacles, are all different 
+colored boxes of different sizes. Every time the app is restarted the obstacles will be of a different sizes and colors. You can also change the 
+color of the player using the interface in the top right corner. Where you also can change the camera for a different experience. It is not endless, but you can still improve your score if you make it to the end 
+and want to go for a new high-score. 
+
+The game builds on Windows, Linux and MacOS
 
 ## Dependencies
 
-- Threepp library
+- Threepp library built using vcpkg
 - ImGui library
 - Call CMake with `-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake`
 
@@ -28,4 +30,6 @@ yet..) will move as a group across the screen.
 - You can also change the color of the player, using the imgui element above the camera button. 
 
 ### Screenshots
+![Video](doc/screenshots/crossyRoadDemogif.gif)
 ![Demo](doc/screenshots/crossy_road_demo.png)
+
