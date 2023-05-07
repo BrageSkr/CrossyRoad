@@ -11,7 +11,6 @@ find_package(imgui CONFIG REQUIRED)
 add_executable(CrossyRoad app/main.cpp)
 target_link_libraries(CrossyRoad PRIVATE threepp::threepp imgui::imgui)
 target_link_libraries(CrossyRoad PUBLIC headerLib)
-target_include_directories(CrossyRoad PUBLIC "${CMAKE_SOURCE_DIR}/include")
 target_include_directories(CrossyRoad PUBLIC "${CMAKE_SOURCE_DIR}/app")
 
 
