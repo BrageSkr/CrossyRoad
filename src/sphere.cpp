@@ -16,13 +16,13 @@ std::shared_ptr<threepp::Mesh> sphere::mesh() {
 
 void sphere::update(float dt, const keyInput &input, int hexColor, bool hasCollision) {
     if (input.up) {
-        move_forwards(dt);
+        moveForwards(dt);
     } else if (input.down) {
-        move_backwards(dt);
+        moveBackwards(dt);
     } else if (input.right) {
-        move_right(dt);
+        moveRight(dt);
     } else if (input.left) {
-        move_left(dt);
+        moveLeft(dt);
     } else if (input.reset) {
         reset();
     }
@@ -32,19 +32,19 @@ void sphere::update(float dt, const keyInput &input, int hexColor, bool hasColli
     updateColor(hexColor);
 }
 
-void sphere::move_forwards(float dt) {
+void sphere::moveForwards(float dt) {
     _mesh->position.x += speed * dt;
 }
 
-void sphere::move_backwards(float dt) {
+void sphere::moveBackwards(float dt) {
     _mesh->position.x += -speed * dt;
 }
 
-void sphere::move_right(float dt) {
+void sphere::moveRight(float dt) {
     _mesh->position.z += speed * dt;
 }
 
-void sphere::move_left(float dt) {
+void sphere::moveLeft(float dt) {
     _mesh->position.z += -speed * dt;
 }
 

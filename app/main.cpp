@@ -16,16 +16,19 @@ int main() {
     auto grid = GridHelper::create(1000, 1000, Color::green, Color::pink);
     GLRenderer renderer(canvas);
     renderer.setClearColor(Color::aliceblue);
+
     auto player1 = player.mesh();
     auto scene = Scene::create();
     auto group1 = Group::create();
     auto group2 = Group::create();
+    
     scene->add(grid);
     scene->add(player1);
     obstacle obstacles;
     obstacles.createObstacles(group1, group2);
     scene->add(group1);
     scene->add(group2);
+
     renderer.enableTextRendering();
     auto &textHandle = renderer.textHandle();
     textHandle.setPosition(0, canvas.getSize().height - 30);

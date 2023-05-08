@@ -15,13 +15,13 @@ public:
 
     void update(float dt, const keyInput &input, int hexColor, bool hasCollision);
 
-    void move_forwards(float dt);
+    void moveForwards(float dt);
 
-    void move_backwards(float dt);
+    void moveBackwards(float dt);
 
-    void move_right(float dt);
+    void moveRight(float dt);
 
-    void move_left(float dt);
+    void moveLeft(float dt);
 
     void reset();
 
