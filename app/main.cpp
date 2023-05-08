@@ -10,7 +10,7 @@ using namespace threepp;
 
 int main() {
     sphere player(0);
-    Canvas canvas;
+    Canvas canvas(Canvas:: Parameters ().title("Crossy Road"));
     myCamera camera1;
     auto camera = camera1.camera(canvas);
     auto grid = GridHelper::create(1000, 1000, Color::green, Color::pink);
