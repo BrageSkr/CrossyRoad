@@ -13,4 +13,9 @@ add_test(NAME test_myGameLogic COMMAND test_myGameLogic)
 target_link_libraries(test_myGameLogic PUBLIC Catch2::Catch2 threepp::threepp imgui::imgui)
 target_link_libraries(test_myGameLogic PUBLIC headerLib)
 
+add_executable(test_obstacle test_obstacle.cpp)
+add_test(NAME test_obstacle COMMAND test_obstacle)
+target_link_libraries(test_obstacle PUBLIC Catch2::Catch2 threepp::threepp)
+target_link_libraries(test_obstacle PUBLIC headerLib)
+
 

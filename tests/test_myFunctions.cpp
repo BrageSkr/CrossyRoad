@@ -1,6 +1,5 @@
 
 #include "threepp/extras/imgui/imgui_context.hpp"
-
 #include "functions.hpp"
 
 #define CATCH_CONFIG_MAIN
