@@ -12,11 +12,11 @@ void obstacle::obstacleGeometry(float w, float p, float pz) {
 }
 
 void obstacle::createObstacles(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2) {
-    for (int j = 0; j < 30; ++j) {
-        for (int i = -50; i < 50; i += 8) {
+    for (int j = 0; j < rowZ; ++j) {
+        for (int i = -rowX; i < rowX; i += distanceBetweenX) {
             float width = math::randomInRange(minSize, maxSize);
             obstacle test;
-            test.obstacleGeometry(width, (j * 3) + 2, i);
+            test.obstacleGeometry(width, (j * distanceBetweenZ) + 2, i);
             if (j % 2 == 0) {
                 group2->add(test.mesh());
             } else {

@@ -23,6 +23,10 @@ public:
 private:
     const float maxSize = 7.0f;
     const float minSize = 3.0f;
+    const int  distanceBetweenX = 8;
+    const int distanceBetweenZ = 3;
+    const int rowX = 50;
+    const int rowZ = 30;
     std::shared_ptr<threepp::Mesh> _mesh;
 };
 

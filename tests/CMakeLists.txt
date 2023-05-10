@@ -8,7 +8,7 @@ add_test(NAME test_myKeylistner COMMAND test_myKeylistner)
 target_link_libraries(test_myKeylistner PUBLIC Catch2::Catch2 threepp::threepp)
 target_include_directories(test_myKeylistner PUBLIC "${CMAKE_SOURCE_DIR}/include")
 
-add_executable(test_myGameLogic test_myGameLogic.cpp)
+add_executable(test_myGameLogic test_myFunctions.cpp)
 add_test(NAME test_myGameLogic COMMAND test_myGameLogic)
 target_link_libraries(test_myGameLogic PUBLIC Catch2::Catch2 threepp::threepp imgui::imgui)
 target_link_libraries(test_myGameLogic PUBLIC headerLib)

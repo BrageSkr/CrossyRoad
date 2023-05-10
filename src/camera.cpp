@@ -39,3 +39,10 @@ void myCamera::updateCamera(std::shared_ptr<threepp::PerspectiveCamera> camera, 
         hasCameraRotated1 = false;
     }
 }
+void myCamera::onWindowResize(threepp::WindowSize size, std::shared_ptr<threepp::PerspectiveCamera> camera,
+                              threepp::GLRenderer &renderer, threepp::TextHandle &textHandle) {
+    camera->aspect = size.getAspect();
+    camera->updateProjectionMatrix();
+    renderer.setSize(size);
+    textHandle.setPosition(0, size.height - 30);
+}

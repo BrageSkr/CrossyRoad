@@ -11,7 +11,8 @@ public:
 
     void updateCamera(std::shared_ptr<threepp::PerspectiveCamera> camera, bool &cameraButtonClicked,
                       std::shared_ptr<threepp::Mesh> player);
-
+    void onWindowResize(threepp::WindowSize size, std::shared_ptr<threepp::PerspectiveCamera> camera,
+                        threepp::GLRenderer &renderer, threepp::TextHandle &textHandle);
 private:
     std::shared_ptr<threepp::PerspectiveCamera> _camera;
     const int cameraStartY = 15;

@@ -5,7 +5,6 @@
 #include "camera.hpp"
 #include "gameLogic.hpp"
 #include "functions.hpp"
-
 using namespace threepp;
 
 int main() {
@@ -36,6 +35,7 @@ int main() {
 
     ImColor color(1.0, 0.0f, 0.0f, 1.0f);
     bool cameraButtonClicked = false;
+
     imgui_functional_context ui(canvas.window_ptr(), [&] {
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
         ImGui::SetNextWindowSize({150, 0}, 0);
@@ -49,19 +49,15 @@ int main() {
 
         ImGui::End();
     });
-
     canvas.onWindowResize([&](WindowSize size) {
-        camera->aspect = size.getAspect();
-        camera->updateProjectionMatrix();
-        renderer.setSize(size);
-        textHandle.setPosition(0, size.height - 30);
+        camera1.onWindowResize(size, camera, renderer, textHandle);
     });
+
     myKeyListener keyListner_;
     canvas.addKeyListener(&keyListner_); //adding the keylistner in the class to the canvas
 
     GameLogic gameLogicInst;
     canvas.animate([&](float dt) {
-
         keyInput button = keyListner_.getKeyInput();
         unsigned int hexColor = updateHexColor(color);
         bool hasCollision = false;
@@ -72,10 +68,8 @@ int main() {
 
         camera1.updateCamera(camera, cameraButtonClicked, player1);
         renderer.render(scene, camera);
-
         ui.render();
     });
-
 }
 
 
