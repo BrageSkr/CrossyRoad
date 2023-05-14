@@ -13,7 +13,7 @@ public:
                     std::shared_ptr<threepp::Group> group2, float dt,TextHandle& textHandle,bool hasCollision);
 
     void setTextHandle (TextHandle& textHandle);
-    int getScore () const;
+
 
 private:
     int group1SpeedDirection = 1;

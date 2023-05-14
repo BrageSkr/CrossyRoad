@@ -54,6 +54,3 @@ void GameLogic::setTextHandle (TextHandle& textHandle){
 
     textHandle.setText("Hi-Score: " + std::to_string(highestScore) + " Score: " + std::to_string(score));
 }
-int GameLogic::getScore() const {
-    return score;
-}

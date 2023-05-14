@@ -36,7 +36,7 @@ int main() {
     ImColor color(1.0f, 0.0f, 0.0f, 1.0f);
     bool cameraButtonClicked = false;
 
-    imgui_functional_context ui(canvas.window_ptr(), [&] {
+    imgui_functional_context ui(canvas.window_ptr(), [&] { //Imgui set-up inspired by the set up found in threepp_vcpkg_test link: https://github.com/markaren/threepp/blob/master/tests/threepp_vcpkg_test/main.cpp
         ImGui::SetNextWindowPos({0, 0}, 0, {0, 0});
         ImGui::SetNextWindowSize({150, 0}, 0);
         ImGui::SetNextWindowBgAlpha(0.0f);

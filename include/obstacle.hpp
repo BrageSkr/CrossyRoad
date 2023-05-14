@@ -1,4 +1,3 @@
-
 #ifndef CROSSYROAD_OBSTACLE_HPP
 #define CROSSYROAD_OBSTACLE_HPP
 
@@ -14,9 +13,8 @@ public:
 
     void createObstacles(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2);
 
-    void
-    updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2, bool &hasCollision,
-                 std::shared_ptr<threepp::Mesh> player);
+    void updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2, bool &hasCollision,
+                 std::shared_ptr<threepp::Mesh> player); //function that updates the boundsphere with each run of the animate function and checks for collision
 
     std::shared_ptr<threepp::Mesh> mesh();
 

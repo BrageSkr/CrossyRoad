@@ -27,8 +27,8 @@ void obstacle::createObstacles(std::shared_ptr<threepp::Group> group1, std::shar
 }
 
 void obstacle::updateHitbox(std::shared_ptr<threepp::Group> group1, std::shared_ptr<threepp::Group> group2,
-                            bool &hasCollision, std::shared_ptr<threepp::Mesh> player) {
-    auto playerBoundingSphere = player->geometry()->boundingSphere; // get bounding box of player
+                            bool &hasCollision, std::shared_ptr<threepp::Mesh> player) { //function that updates the boundsphere with each run of the animate function and checks for collision
+    auto playerBoundingSphere = player->geometry()->boundingSphere;
     auto playerWorldBoundingSphere = playerBoundingSphere->clone().applyMatrix4((*player->matrixWorld));
     for (auto &obstacle: group1->children) {
         auto obstacleBoundingBox = obstacle->geometry()->boundingBox;

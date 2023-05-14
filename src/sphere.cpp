@@ -11,7 +11,7 @@ sphere::sphere(float position_x) {
 }
 
 std::shared_ptr<threepp::Mesh> sphere::mesh() {
-    return _mesh;  //returns the _mesh as a shared pointer
+    return _mesh;
 }
 
 void sphere::update(float dt, const keyInput &input, int hexColor, bool hasCollision) {
