@@ -27,7 +27,7 @@ void GameLogic::updateGame(std::shared_ptr<threepp::Mesh> player, std::shared_pt
     }
 
     if (player->position.z >= maxPositionZ) {
-
+        player->position.z = maxPositionZ;
     }
     if (player->position.z <= minPositionZ) {
         player->position.z = minPositionZ;

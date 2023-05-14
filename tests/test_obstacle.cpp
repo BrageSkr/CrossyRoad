@@ -1,5 +1,4 @@
 #include "obstacle.hpp"
-#include "iostream"
 #include "sphere.hpp"
 #define CATCH_CONFIG_MAIN
 
@@ -13,8 +12,7 @@ TEST_CASE("obstacleGeometry sets mesh properties correctly") {
     CHECK(mesh->position.y == 0.0f);
     CHECK(mesh->position.z == 0.0f);
 
-
-
+    
 }
 
 
