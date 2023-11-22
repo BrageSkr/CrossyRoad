@@ -1,5 +1,4 @@
 # Crossy-road
-## Kandiatnummer: 10002
 ## Description
 
 This is a simple crossy-road style game, built using threepp (a c++ port of three.js). Where the player is a sphere and the obstacles, are all different 
@@ -33,3 +32,6 @@ The game builds on Windows, Linux and MacOS
 ![Video](doc/screenshots/crossyRoadDemogif.gif)
 ![Demo](doc/screenshots/crossy_road_demo.png)
 
+## Rights 
+the threepp libary is available under the MIT or Apache License 2.0 
+link: https://github.com/markaren/threepp

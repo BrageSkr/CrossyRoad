@@ -12,10 +12,7 @@ TEST_CASE("obstacleGeometry sets mesh properties correctly") {
     CHECK(mesh->position.y == 0.0f);
     CHECK(mesh->position.z == 0.0f);
 
-    
 }
-
-
 
 TEST_CASE("updateHitbox detects collision with obstacles") {
 obstacle testObstacle;
